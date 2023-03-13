@@ -37,7 +37,7 @@ App.post("/createChallenge", async (req, res) => {
   }
 });
 
-App.post("/challenge/pending/:id", async (req, res) => {
+App.post("/challenge/pending", async (req, res) => {
   try {
     const challenge = await ChallengeModel.findByIdAndUpdate(
       req.params.id,
@@ -58,7 +58,7 @@ App.post("/challenge/pending/:id", async (req, res) => {
   }
 });
 
-App.post("/challenge/finished/:id", async (req, res) => {
+App.post("/challenge/finished", async (req, res) => {
   try {
     const challenge = await ChallengeModel.findByIdAndUpdate(
       req.params.id,
@@ -79,7 +79,7 @@ App.post("/challenge/finished/:id", async (req, res) => {
   }
 });
 
-App.post("/challenge/revert/:id", async (req, res) => {
+App.post("/challenge/revert", async (req, res) => {
   try {
     const challenge = await ChallengeModel.findByIdAndUpdate(
       req.params.id,
