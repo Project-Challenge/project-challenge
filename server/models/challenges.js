@@ -29,11 +29,11 @@ const ChallengeSchema = new mongoose.Schema({
     },
     
     startDate: { // if there is no start/end date treat as indefinite
-      type: String,
+      type: Date,
       required: false,
     },
     endDate: {  
-      type: String,
+      type: Date,
       required: false,
     },
     
