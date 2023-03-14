@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const ChallengeSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -51,5 +51,5 @@ const ChallengeSchema = new mongoose.Schema({
     },
 });
 
-const ChallengeModel = mongoose.model("challenges", ChallengeSchema)
-module.exports = ChallengeModel;
+const TaskModel = mongoose.model("tasks", TaskSchema)
+module.exports = TaskModel;
