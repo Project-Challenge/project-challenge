@@ -5,19 +5,12 @@ const TaskModel = require('../../models/tasks.js')
 
 router.post("/", async (req, res) => {
   try {
-    const task = await TaskModel.findByIdAndUpdate(
-      req.body.id,
-      {
-        state: 2,
-        verifiedBy: "placeholder",
-        finishedDate: new Date()
-      },
-      { new: true }
-    );
+    const task = await TaskModel.find();
     if (!task) {    
-      return res.status(404).send("Task not found");
+      logger.warn("No tasks");
+      return res.status(404).send("No tasks");
     }
-    logger.info(`Task "${task._id}" set to finished`);
+    logger.debug(`Tasks displayed`);
     res.send(task);
   } catch (err) {
     logger.error(err);
