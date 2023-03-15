@@ -1,2 +1,2 @@
-# project-challange
+# project-challenge
 School project
