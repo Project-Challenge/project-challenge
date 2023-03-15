@@ -16,13 +16,13 @@ router.post("/", async (req, res) => {
       { new: true }
     );
     if (!task) {    
-      return res.status(404).send("Task not found");
+      return res.status(404).send({error: "Task not found"});
     }
     logger.info(`Task "${task._id}" reverted`);
     res.send(task);
   } catch (err) {
     logger.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send({error: "Internal Server Error"});
   }
 });
 
