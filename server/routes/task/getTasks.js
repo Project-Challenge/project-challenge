@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   try {
     const result = schema.validate(req.body);
     if (result.error) {
-      logger.warn("Invalid request body");
+      logger.debug({error: "Invalid request body"});
       return res.status(400).send({ error: result.error.details[0].message });
     }
     const query = {
@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
     };
     const tasks = await TaskModel.find(query);
     if (!tasks || tasks.length === 0) {
-      logger.warn("No tasks found");
+      logger.debug("No tasks found");
       return res.status(404).send({ error: "No tasks" });
     }
     logger.debug(`Tasks displayed`);
