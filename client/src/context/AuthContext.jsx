@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     try {
       response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.authTokensPath, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": ENDPOINTS.baseURL },
         body: JSON.stringify({
           username: e.target.username.value,
           password: e.target.password.value,
