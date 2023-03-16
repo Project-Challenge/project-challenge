@@ -1,5 +1,6 @@
 export const ENDPOINTS = {
   baseURL: 'http://localhost:3001',
+  loginUser: '/loginUser',
   searchPath: '/api/search_tools',
   authTokensPath: '/verifyToken/',
   authTokensRefreshPath: '/api/token/refresh/',

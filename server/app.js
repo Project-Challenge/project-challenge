@@ -1,23 +1,28 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("./utils/logger");
-require('dotenv').config();
+const cors = require("cors");
+
+require("dotenv").config();
 
 const app = express();
 
 // Connect to database
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  logger.info("Connected to MongoDB");
-}).catch((error) => {
-  logger.error(error);
-  console.log(error);
-});
-  
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    logger.info("Connected to MongoDB");
+  })
+  .catch((error) => {
+    logger.error(error);
+  });
+
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/registerUser", require("./routes/auth/registerUser"));
