@@ -21,7 +21,7 @@
         lastLoginDate: new Date()
       });
       const savedUser = await user.save();
-      logger.debug(`User "${username}" registered`);
+      logger.debug(`User "${savedUser.username}" registered`);
       res.status(201).json({ id: savedUser._id, username: savedUser.username});
     } catch (error) {
       if (error.code === 11000 && error.keyPattern.username === 1) {
