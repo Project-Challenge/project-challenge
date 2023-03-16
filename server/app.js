@@ -13,11 +13,11 @@ mongoose.connect(process.env.DB_URI, {
   logger.info("Connected to MongoDB");
 }).catch((error) => {
   logger.error(error);
-  console.log(error);
 });
   
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/registerUser", require("./routes/auth/registerUser"));
