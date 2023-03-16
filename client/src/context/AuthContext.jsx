@@ -6,9 +6,14 @@ import { useNavigate } from 'react-router-dom'
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem('authTokens')
-      ? JSON.parse(localStorage.getItem('authTokens'))
+  const [token, setToken] = useState(() =>
+    localStorage.getItem('token')
+      ? JSON.parse(localStorage.getItem('token'))
+      : null
+  )
+  const [user, setUser] = useState(() =>
+    localStorage.getItem('token')
+      ? jwt_decode(localStorage.getItem('token'))
       : null
   )
   const [loading, setLoading] = useState(true)
@@ -35,10 +40,10 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error(error)
     }
-    console.log(response)
     if (response.status === 200) {
-      setAuthTokens(data.token)
-      localStorage.setItem('authTokens', JSON.stringify(data))
+      setToken(data)
+      setUser(jwt_decode(data.token))
+      localStorage.setItem('token', JSON.stringify(data))
       navigate('/blogs')
     } else {
       let message = document.getElementById('message')
@@ -55,20 +60,26 @@ const AuthProvider = ({ children }) => {
   }
   const logoutUser = () => {
     setAuthTokens(null)
-    localStorage.removeItem('authTokens')
+    setUser(null)
+    localStorage.removeItem('token')
     navigate('/LogIn')
   }
 
   let contexData = {
-    authTokens: authTokens,
-    setAuthTokens: setAuthTokens,
+    user: user,
+    authTokens: token,
+    setAuthTokens: setToken,
+    setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
   }
 
   useEffect(() => {
+    if (token) {
+      setUser(jwt_decode(token.token))
+    }
     setLoading(false)
-  }, [authTokens, loading])
+  }, [token, loading])
 
   return (
     <AuthContext.Provider value={contexData}>
