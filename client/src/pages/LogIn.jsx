@@ -1,14 +1,11 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
-
-function LoginForm() {
+import { AuthContext } from '../context/AuthContext'
+const LogIn = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const {loginUser} = useContext(AuthContext)
 
-  const loginUser = (event) => {
-    event.preventDefault()
-    // your login logic goes here
-  }
 
   return (
     <Container
@@ -48,4 +45,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default LogIn
