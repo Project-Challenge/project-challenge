@@ -7,13 +7,13 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(() =>
-    localStorage.getItem('token')
-      ? JSON.parse(localStorage.getItem('token'))
+    localStorage.getItem('accessToken')
+      ? JSON.parse(localStorage.getItem('accessToken'))
       : null
   )
   const [user, setUser] = useState(() =>
-    localStorage.getItem('token')
-      ? jwt_decode(localStorage.getItem('token'))
+    localStorage.getItem('accessToken')
+      ? jwt_decode(localStorage.getItem('accessToken'))
       : null
   )
   const [loading, setLoading] = useState(true)
@@ -42,8 +42,8 @@ const AuthProvider = ({ children }) => {
     }
     if (response.status === 200) {
       setToken(data)
-      setUser(jwt_decode(data.token))
-      localStorage.setItem('token', JSON.stringify(data))
+      setUser(jwt_decode(data.accessToken))
+      localStorage.setItem('accessToken', JSON.stringify(data))
       navigate('/blogs')
     } else {
       let message = document.getElementById('message')
@@ -59,16 +59,16 @@ const AuthProvider = ({ children }) => {
     }
   }
   const logoutUser = () => {
-    setAuthTokens(null)
+    setaccessTokens(null)
     setUser(null)
-    localStorage.removeItem('token')
+    localStorage.removeItem('accessToken')
     navigate('/LogIn')
   }
 
   let contexData = {
     user: user,
-    authTokens: token,
-    setAuthTokens: setToken,
+    accessTokens: token,
+    setaccessTokens: setToken,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (token) {
-      setUser(jwt_decode(token.token))
+      setUser(jwt_decode(token.accessToken))
     }
     setLoading(false)
   }, [token, loading])
