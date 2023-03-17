@@ -40,26 +40,17 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error(error)
     }
-    if (response.status === 200) {
+    if (!data.error) {
       setToken(data)
       setUser(jwt_decode(data.accessToken))
       localStorage.setItem('accessToken', JSON.stringify(data))
       navigate('/blogs')
     } else {
-      let message = document.getElementById('message')
-      switch (response.status) {
-        case 400:
-          message.innerHTML = 'Username and password cannot be empty'
-        case 401:
-          message.innerHTML = 'Incorrect username or password'
-          break
-        default:
-          message.innerHTML = 'Something went wrong'
-      }
+      document.getElementById('message').innerHTML = data.error
     }
   }
   const logoutUser = () => {
-    setaccessTokens(null)
+    setToken(null)
     setUser(null)
     localStorage.removeItem('accessToken')
     navigate('/LogIn')
@@ -68,7 +59,7 @@ const AuthProvider = ({ children }) => {
   let contexData = {
     user: user,
     accessTokens: token,
-    setaccessTokens: setToken,
+    setToken: setToken,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
