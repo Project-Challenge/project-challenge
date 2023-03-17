@@ -2,9 +2,15 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const logger = require("../../utils/logger");
+const joi = require("joi");
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
+    const result = await validateToken(req.body);
+    if (result.error)  {
+      logger.info(result.error.details[0].message);
+      return res.status(403).send({error: result.error.details[0].message});
+    }
     const accessToken = req.body.accessToken;
     if (!accessToken) {
       return res.status(401).json({ error: "Access denied. No token provided." });
@@ -17,5 +23,12 @@ router.get("/", async (req, res) => {
     return res.status(401).json({ error: "Access denied. Invalid token." });
   }
 });
+
+async function validateToken(user) {
+  const schema = joi.object({
+    accessToken: joi.string().required(),
+  });
+  return schema.validate(user); 
+}
 
 module.exports = router;

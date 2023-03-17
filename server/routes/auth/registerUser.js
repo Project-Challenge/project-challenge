@@ -5,7 +5,6 @@
   const logger = require("../../utils/logger");
   const UserModel = require("../../models/users");
 
-
   router.post("/", async (req, res) => {
     try {
       const result = await validateUser(req.body);
@@ -34,25 +33,25 @@
     }
   });
 
-  async function validateUser(user) {
-    const schema = joi.object({
-      username: joi.string().min(5).max(40).required().messages({
-        "string.base": "Username must be a string",
-        "string.min": "Username must be at least 5 characters long",
-        "string.max": "Username cannot be more than 40 characters long",
-        "any.required": "Username is required",
-        "string.empty": "Username is required"
-      }),
-      password: joi.string().min(5).max(80).required().pattern(new RegExp('^(?=.*[!@#$%^&*(),.?":{}|<>]).*$')).messages({
-        "string.base": "Password must be a string",
-        "string.min": "Password must be at least 5 characters long",
-        "string.max": "Password cannot be more than 80 characters long",
-        "any.required": "Password is required",
-        "string.empty": "Password is required",
-        "string.pattern.base": "Password must contain at  least one special character"
-      })
-    });
-    return schema.validate(user); 
-  }
+async function validateUser(user) {
+  const schema = joi.object({
+    username: joi.string().min(5).max(40).required().messages({
+      "string.base": "Username must be a string",
+      "string.min": "Username must be at least 5 characters long",
+      "string.max": "Username cannot be more than 40 characters long",
+      "any.required": "Username is required",
+      "string.empty": "Username is required"
+    }),
+    password: joi.string().min(5).max(80).required().pattern(new RegExp('^(?=.*[!@#$%^&*(),.?":{}|<>]).*$')).messages({
+      "string.base": "Password must be a string",
+      "string.min": "Password must be at least 5 characters long",
+      "string.max": "Password cannot be more than 80 characters long",
+      "any.required": "Password is required",
+      "string.empty": "Password is required",
+      "string.pattern.base": "Password must contain at  least one special character"
+    })
+  });
+  return schema.validate(user); 
+}
 
   module.exports = router;

@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const logger = require("../../utils/logger");
-const TaskModel = require('../../models/tasks.js')
+const TaskModel = require('../../models/tasks.js');
+const joi = require("joi");
 
 router.get("/", async (req, res) => {
   try {
+    const result = await validateTask(req.body);
+    if (result.error)  {
+      logger.info(result.error.details[0].message);
+      return res.status(403).send({error: result.error.details[0].message});
+    }
     const query = {
       ...(req.body.id && { _id: req.body.id }),
       ...(req.body.state && { state: req.body.state }),
@@ -32,8 +38,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-
-
+async function validateTask(user) {
+  const schema = joi.object({
+    id: joi.string(),
+    state: joi.string().valid(0, 1, 2, 3),
+    like: joi.string(),
+    date: joi.date()
+  });
+  return schema.validate(user); 
+}
 
 module.exports = router;
