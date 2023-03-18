@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react'
 import { ENDPOINTS } from '../const/endpoints'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 export const AuthContext = createContext()
 
@@ -41,12 +42,15 @@ const AuthProvider = ({ children }) => {
       console.error(error)
     }
     if (!data.error) {
+      console.log("DUPA")
       setToken(data)
       setUser(jwt_decode(data.accessToken))
       localStorage.setItem('accessToken', JSON.stringify(data))
-      navigate('/blogs')
+      navigate('/challenges')
+      toast("Logged in!",{theme:"colored",type:"success"});
+      
     } else {
-      document.getElementById('message').innerHTML = data.error
+      toast(data.error,{theme:"colored",type:"error"});
     }
   }
   const logoutUser = () => {
@@ -54,6 +58,7 @@ const AuthProvider = ({ children }) => {
     setUser(null)
     localStorage.removeItem('accessToken')
     navigate('/LogIn')
+    toast("Logged out!",{theme:"colored",type:"success"});
   }
 
   let contexData = {

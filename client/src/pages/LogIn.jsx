@@ -6,7 +6,6 @@ const LogIn = () => {
   const [password, setPassword] = useState('')
   const {loginUser} = useContext(AuthContext)
 
-
   return (
     <Container
       style={{ height: '100vh' }}
