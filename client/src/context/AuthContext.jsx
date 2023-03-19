@@ -2,12 +2,12 @@ import { createContext, useState, useEffect } from 'react'
 import { ENDPOINTS } from '../const/endpoints'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(() =>
+  const [tokens, setTokens] = useState(() =>
     localStorage.getItem('accessToken')
       ? JSON.parse(localStorage.getItem('accessToken'))
       : null
@@ -42,40 +42,39 @@ const AuthProvider = ({ children }) => {
       console.error(error)
     }
     if (!data.error) {
-      console.log("DUPA")
-      setToken(data)
+      console.log('DUPA')
+      setTokens(data)
       setUser(jwt_decode(data.accessToken))
       localStorage.setItem('accessToken', JSON.stringify(data))
       navigate('/challenges')
-      toast("Logged in!",{theme:"colored",type:"success"});
-      
+      toast('Logged in!', { theme: 'colored', type: 'success' })
     } else {
-      toast(data.error,{theme:"colored",type:"error"});
+      toast(data.error, { theme: 'colored', type: 'error' })
     }
   }
   const logoutUser = () => {
-    setToken(null)
+    setTokens(null)
     setUser(null)
     localStorage.removeItem('accessToken')
     navigate('/LogIn')
-    toast("Logged out!",{theme:"colored",type:"success"});
+    toast('Logged out!', { theme: 'colored', type: 'success' })
   }
 
   let contexData = {
     user: user,
-    accessTokens: token,
-    setToken: setToken,
+    tokens: tokens,
+    setTokens: setTokens,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
   }
 
   useEffect(() => {
-    if (token) {
-      setUser(jwt_decode(token.accessToken))
+    if (tokens) {
+      setUser(jwt_decode(tokens.accessToken))
     }
     setLoading(false)
-  }, [token, loading])
+  }, [tokens, loading])
 
   return (
     <AuthContext.Provider value={contexData}>

@@ -6,28 +6,28 @@ import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react'
 
 const useAxios = () => {
-  const { authTokens, setAuthTokens } = useContext(AuthContext)
+  const { tokens, setTokens } = useContext(AuthContext)
 
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
     headers: {
-      Authorization: `Bearer ${authTokens?.access}`,
+      Authorization: `Bearer ${tokens?.accessToken}`,
     },
   })
 
   axiosInstance.interceptors.request.use(async (req) => {
-    const user = jwt_decode(authTokens.access)
+    const user = jwt_decode(tokens.accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     if (!isExpired) return req
     const response = await axios.post(
       ENDPOINTS.baseURL + ENDPOINTS.authTokensRefreshPath,
       {
-        refresh: authTokens.refresh,
+        refreshToken: tokens.refreshToken,
       }
     )
-    localStorage.setItem('authTokens', JSON.stringify(response.data))
-    setAuthTokens(response.data)
-    req.headers.Authorization = `Bearer ${response.data.access}`
+    localStorage.setItem('accessToken', JSON.stringify(response.data))
+    setTokens(response.data)
+    req.headers.Authorization = `Bearer ${response.data.accessToken}`
     return req
   })
 
