@@ -2,9 +2,15 @@ const express = require("express");
 const router = express.Router();
 const logger = require("../../utils/logger");
 const TaskModel = require('../../models/tasks.js')
+const joi = require("joi");
 
 router.get("/", async (req, res) => {
   try {
+    const result = schema.validate(req.body);
+    if (result.error) {
+      logger.debug({error: "Invalid request body"});
+      return res.status(400).send({ error: result.error.details[0].message });
+    }
     const query = {
       ...(req.body.id && { _id: req.body.id }),
       ...(req.body.state && { state: req.body.state }),
@@ -21,7 +27,7 @@ router.get("/", async (req, res) => {
     };
     const tasks = await TaskModel.find(query);
     if (!tasks || tasks.length === 0) {
-      logger.warn("No tasks found");
+      logger.debug("No tasks found");
       return res.status(404).send({ error: "No tasks" });
     }
     logger.debug(`Tasks displayed`);
@@ -32,8 +38,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-
-
+const schema = joi.object({
+  id: joi.string(),
+  state: joi.number(),
+  like: joi.string(),
+  date: joi.boolean(),
+});
 
 module.exports = router;
