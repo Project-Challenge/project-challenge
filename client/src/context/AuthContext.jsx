@@ -1,88 +1,86 @@
-import { createContext, useState, useEffect } from "react";
-import { ENDPOINTS } from "../const/endpoints";
-import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { createContext, useState, useEffect } from 'react'
+import { ENDPOINTS } from '../const/endpoints'
+import jwt_decode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-export const AuthContext = createContext();
+export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [authTokens, setAuthTokens] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? JSON.parse(localStorage.getItem("authTokens"))
+  const [tokens, setTokens] = useState(() =>
+    localStorage.getItem('accessToken')
+      ? JSON.parse(localStorage.getItem('accessToken'))
       : null
-  );
+  )
   const [user, setUser] = useState(() =>
-    localStorage.getItem("authTokens")
-      ? jwt_decode(localStorage.getItem("authTokens"))
+    localStorage.getItem('accessToken')
+      ? jwt_decode(localStorage.getItem('accessToken'))
       : null
-  );
-  const [loading, setLoading] = useState(true);
+  )
+  const [loading, setLoading] = useState(true)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const loginUser = async (e) => {
-    e.preventDefault();
-    let response;
-    let data;
+    e.preventDefault()
+    let response
+    let data
     try {
-      response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.authTokensPath, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.loginUser, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': ENDPOINTS.baseURL,
+        },
         body: JSON.stringify({
           username: e.target.username.value,
           password: e.target.password.value,
         }),
-      });
-      data = await response.json();
+      })
+      data = await response.json()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      navigate("/LogIn");
+    if (!data.error) {
+      console.log('DUPA')
+      setTokens(data)
+      setUser(jwt_decode(data.accessToken))
+      localStorage.setItem('accessToken', JSON.stringify(data))
+      navigate('/challenges')
+      toast('Logged in!', { theme: 'colored', type: 'success' })
     } else {
-      let message = document.getElementById("message");
-      switch (response.status) {
-        case 400:
-          message.innerHTML = "Username and password cannot be empty";
-        case 401:
-          message.innerHTML = "Incorrect username or password";
-          break;
-        default:
-          message.innerHTML = "Something went wrong";
-      }
+      toast(data.error, { theme: 'colored', type: 'error' })
     }
-  };
+  }
   const logoutUser = () => {
-    setAuthTokens(null);
-    setUser(null);
-    localStorage.removeItem("authTokens");
-    navigate("/LogIn");
-  };
+    setTokens(null)
+    setUser(null)
+    localStorage.removeItem('accessToken')
+    navigate('/LogIn')
+    toast('Logged out!', { theme: 'colored', type: 'success' })
+  }
 
   let contexData = {
     user: user,
-    authTokens: authTokens,
-    setAuthTokens: setAuthTokens,
+    tokens: tokens,
+    setTokens: setTokens,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
-  };
+  }
 
   useEffect(() => {
-    if (authTokens) {
-      setUser(jwt_decode(authTokens.access));
+    if (tokens) {
+      setUser(jwt_decode(tokens.accessToken))
     }
-    setLoading(false);
-  }, [authTokens, loading]);
+    setLoading(false)
+  }, [tokens, loading])
 
   return (
     <AuthContext.Provider value={contexData}>
       {loading ? null : children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export default AuthProvider;
+export default AuthProvider

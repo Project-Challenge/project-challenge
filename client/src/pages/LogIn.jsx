@@ -1,40 +1,47 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { useState,useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useState,useContext } from 'react'
+import { Form, Button, Container, Card } from 'react-bootstrap'
+import { AuthContext } from '../context/AuthContext'
 const LogIn = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const { loginUser } = useContext(AuthContext)
+  const {loginUser} = useContext(AuthContext)
+
   return (
-    <form onSubmit={loginUser} className='flex flex-col space-y-2'>
-      <p className='text-gray-400' id='message'>
-        Log in!
-      </p>
-      <div className='flex flex-col space-y-4 z-10'>
-        <input
-          className='border border-gray-200 outline-none rounded-full md:h-12 h-10 w-72 md:w-80 lg:96 pl-4 text-xs shadow-md'
-          type='text'
-          value={login}
-          name='username'
-          onChange={(e) => setLogin(e.target.value)}
-          placeholder='Login...'
-        />
-        <input
-          className='border border-gray-200 outline-none rounded-full md:h-12 h-10 w-72 md:w-80 lg:96 pl-4 text-xs shadow-md'
-          type='password'
-          value={password}
-          name='password'
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder='Password...'
-        />
-        <input
-          className='hover:bg-blue-700 bg-blue-600 w-full rounded-full md:h-12 h-10 w-72 md:w-80 lg:96 font-semibold shadow-md text-white'
-          type='submit'
-          value='Log in'
-        />
-      </div>
-    </form>
-  );
-};
-export default LogIn;
+    <Container
+      style={{ height: '100vh' }}
+      className='d-flex flex-column align-items-center justify-content-center'>
+      <h2>Challenges</h2>
+      <Card style={{ width: '400px', padding: '20px' }}>
+        <Form onSubmit={loginUser}>
+          <Form.Group>
+            <Form.Label>Login</Form.Label>
+            <Form.Control
+              type='text'
+              value={login}
+              name='username'
+              onChange={(e) => setLogin(e.target.value)}
+              placeholder='Login...'
+            />
+          </Form.Group>
+
+          <Form.Group>
+            <Form.Label style={{ paddingTop: '1rem' }}>Password</Form.Label>
+            <Form.Control
+              type='password'
+              value={password}
+              name='password'
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Password...'
+            />
+          </Form.Group>
+
+          <Button variant='primary' type='submit' style={{ marginTop: '1rem' }}>
+            Log in
+          </Button>
+        </Form>
+      </Card>
+    </Container>
+  )
+}
+
+export default LogIn

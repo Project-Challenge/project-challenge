@@ -27,6 +27,8 @@ app.use(express.json());
 app.use("/registerUser", require("./routes/auth/registerUser"));
 app.use("/loginUser", require("./routes/auth/loginUser"));
 app.use("/verifyToken", require("./routes/auth/verifyToken"));
+app.use("/refreshToken", require("./routes/auth/refreshToken"));
+
 
 app.use("/createTask", require("./routes/task/createTask"));
 app.use("/pendingTask", require("./routes/task/pendingTask"));

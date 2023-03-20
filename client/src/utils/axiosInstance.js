@@ -3,34 +3,34 @@ import jwt_decode from 'jwt-decode'
 import dayjs from 'dayjs'
 import { ENDPOINTS } from '../const/endpoints'
 
-let authTokens = localStorage.getItem('authTokens')
-  ? JSON.parse(localStorage.getItem('authTokens'))
+let tokens = localStorage.getItem('accessToken')
+  ? JSON.parse(localStorage.getItem('accessToken'))
   : null
 const axiosInstance = axios.create({
   baseURL: ENDPOINTS.baseURL,
   headers: {
-    Authorization: `Bearer ${authTokens?.access}`,
+    Authorization: `Bearer ${tokens?.accessToken}`,
   },
 })
 axiosInstance.interceptors.request.use(async (req) => {
-  if (!authTokens) {
-    authTokens = localStorage.getItem('authTokens')
-      ? JSON.parse(localStorage.getItem('authTokens'))
+  if (!tokens) {
+    tokens = localStorage.getItem('accessToken')
+      ? JSON.parse(localStorage.getItem('accessToken'))
       : null
-    req.headers.Authorization = `Bearer ${authTokens?.access}`
+    req.headers.Authorization = `Bearer ${tokens?.accessToken}`
   }
 
-  const user = jwt_decode(authTokens.access)
+  const user = jwt_decode(tokens.accessToken)
   const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
   if (!isExpired) return req
   const response = await axios.post(
-    ENDPOINTS.baseURL + ENDPOINTS.authTokensRefreshPath,
+    ENDPOINTS.baseURL + ENDPOINTS.accessTokenRefreshPath,
     {
-      refresh: authTokens.refresh,
+      refreshToken: tokens.refreshToken,
     }
   )
-  localStorage.setItem('authTokens', JSON.stringify(response.data))
-  req.headers.Authorization = `Bearer ${response.data.access}`
+  localStorage.setItem('accessToken', JSON.stringify(response.data))
+  req.headers.Authorization = `Bearer ${response.data.accessToken}`
   return req
 })
 export default axiosInstance
