@@ -4,7 +4,8 @@ function ChallengeCard({ title, description }) {
   return (
     <Card
       style={{
-        margin: '10px',
+        margin: '5px',
+        width: '25rem',
       }}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>

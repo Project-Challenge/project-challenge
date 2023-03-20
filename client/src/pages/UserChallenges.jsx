@@ -4,7 +4,7 @@ import useAxios from '../utils/useAxios'
 import { ENDPOINTS } from '../const/endpoints'
 import { toast } from 'react-toastify'
 import ChallengeCard from '../components/ChallengeCard'
-import { CardGroup } from 'react-bootstrap'
+import { CardGroup, Container, Row, Col } from 'react-bootstrap'
 
 const UserChallenges = () => {
   const { logoutUser } = useContext(AuthContext)
@@ -25,11 +25,16 @@ const UserChallenges = () => {
   return (
     <>
       <button onClick={logoutUser}>aaa</button>
-
-      <div className='d-lg-inline-flex'>
-        {challenges &&
-          challenges.map((item, key) => <ChallengeCard key={key} {...item} />)}
-      </div>
+      <Container>
+        <Row>
+          {challenges &&
+            challenges.map((item, key) => (
+              <Col>
+                <ChallengeCard key={key} {...item} />
+              </Col>
+            ))}
+        </Row>
+      </Container>
     </>
   )
 }
