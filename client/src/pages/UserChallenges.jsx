@@ -5,6 +5,7 @@ import { ENDPOINTS } from '../const/endpoints'
 import { toast } from 'react-toastify'
 import ChallengeCard from '../components/ChallengeCard'
 import { CardGroup, Container, Row, Col } from 'react-bootstrap'
+import NavbarComponent from '../components/NavbarComponent'
 
 const UserChallenges = () => {
   const { logoutUser } = useContext(AuthContext)
@@ -24,13 +25,13 @@ const UserChallenges = () => {
   }
   return (
     <>
-      <button onClick={logoutUser}>aaa</button>
+      <NavbarComponent logoutUser={logoutUser} />
       <Container>
         <Row>
           {challenges &&
             challenges.map((item, key) => (
-              <Col>
-                <ChallengeCard key={key} {...item} />
+              <Col key={key}>
+                <ChallengeCard {...item} />
               </Col>
             ))}
         </Row>
