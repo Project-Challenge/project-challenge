@@ -26,6 +26,7 @@ const AuthProvider = ({ children }) => {
     let response
     let data
     try {
+      console.log(e.target.remember.value)
       response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.loginUser, {
         method: 'POST',
         headers: {
@@ -35,6 +36,7 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify({
           username: e.target.username.value,
           password: e.target.password.value,
+          remember: e.target.remember.value
         }),
       })
       data = await response.json()
@@ -42,7 +44,6 @@ const AuthProvider = ({ children }) => {
       console.error(error)
     }
     if (!data.error) {
-      console.log('DUPA')
       setTokens(data)
       setUser(jwt_decode(data.accessToken))
       localStorage.setItem('accessToken', JSON.stringify(data))
@@ -56,7 +57,7 @@ const AuthProvider = ({ children }) => {
     setTokens(null)
     setUser(null)
     localStorage.removeItem('accessToken')
-    navigate('/LogIn')
+    navigate('/login')
     toast('Logged out!', { theme: 'colored', type: 'success' })
   }
 
