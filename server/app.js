@@ -2,12 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("./utils/logger");
 const cors = require('cors')
-
 require('dotenv').config();
-
 const app = express();
-app.use(cors());
-
 
 // Connect to database
 mongoose.connect(process.env.DB_URI, {
@@ -17,18 +13,17 @@ mongoose.connect(process.env.DB_URI, {
   logger.info("Connected to MongoDB");
 }).catch((error) => {
   logger.error(error);
-  console.log(error);
 });
   
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/registerUser", require("./routes/auth/registerUser"));
 app.use("/loginUser", require("./routes/auth/loginUser"));
 app.use("/verifyToken", require("./routes/auth/verifyToken"));
 app.use("/refreshToken", require("./routes/auth/refreshToken"));
-
 
 app.use("/createTask", require("./routes/task/createTask"));
 app.use("/pendingTask", require("./routes/task/pendingTask"));

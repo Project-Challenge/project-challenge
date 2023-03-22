@@ -23,7 +23,7 @@ const NavbarComponent = ({ logoutUser }) => {
             drop='down'>
             <NavDropdown.Item to='/action-1'>Settings</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item to='/separated-link' style={{ color: 'red' }}>
+            <NavDropdown.Item onClick={logoutUser} style={{ color: 'red' }}>
               Log out
             </NavDropdown.Item>
           </NavDropdown>

@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path='/LogIn' element={<LogIn />} />
+          <Route path='/login' element={<LogIn />} />
           <Route element={<PrivateRoutes />}>
             <Route path='/challenges' element={<UserChallenges />} />
             <Route path='/contact' element={<>cont</>} />
