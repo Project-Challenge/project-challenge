@@ -23,20 +23,23 @@ const UserChallenges = () => {
     } else
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
+
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} />
-      <Container>
-        <Row>
-          {challenges &&
-            challenges.map((item, key) => (
-              <Col key={key}>
-                <ChallengeCard {...item} />
-              </Col>
-            ))}
-        </Row>
+      <Container fluid style={{ padding: '0', overflowX: 'hidden' }}>
+      <Row noGutters>
+    {challenges &&
+      challenges.map((item, key) => (
+      <Col key={key}>
+        <ChallengeCard {...item} />
+      </Col>
+    ))}
+</Row>
+
       </Container>
     </>
   )
 }
+
 export default UserChallenges

@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { AuthContext } from '../context/AuthContext'
-
+import "../../public/styles/Login.css"
 const LogIn = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -23,6 +23,7 @@ const LogIn = () => {
               <Form.Label>Login</Form.Label>
               <Form.Control
               style={{border: "2px solid black"}}
+                className="loginControls"
                 type='text'
                 value={login}
                 name='username'
@@ -36,6 +37,7 @@ const LogIn = () => {
               <Form.Control
               style={{border: "2px solid black"}}
                 type='password'
+                className="loginControls"
                 value={password}
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}

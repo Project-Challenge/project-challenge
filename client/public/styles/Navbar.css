@@ -1,8 +1,6 @@
 .my-navbar{
-    background-color: #4169E1;
-    color: white !important;
+    border-bottom: 3px solid black;
+    color: black !important;
+    margin-bottom: 1rem;
   }
-  .my-dropdown .dropdown-item {
-    color: white !important;
-  }
-  
+
