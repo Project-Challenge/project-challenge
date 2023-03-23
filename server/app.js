@@ -24,12 +24,13 @@ app.use("/registerUser", require("./routes/auth/registerUser"));
 app.use("/loginUser", require("./routes/auth/loginUser"));
 app.use("/verifyToken", require("./routes/auth/verifyToken"));
 app.use("/refreshToken", require("./routes/auth/refreshToken"));
+app.use("/users", require("./routes/auth/users"))
 
 app.use("/createTask", require("./routes/task/createTask"));
 app.use("/pendingTask", require("./routes/task/pendingTask"));
 app.use("/finishedTask", require("./routes/task/finishedTask"));
 app.use("/revertTask", require("./routes/task/revertTask"));
-app.use("/getTasks", require("./routes/task/getTasks"));
+app.use("/tasks", require("./routes/task/tasks"));
 
 // Error handling middleware
 app.use((error, req, res, next) => {

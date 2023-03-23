@@ -38,14 +38,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-async function validateTask(user) {
+async function validateTask(task) {
   const schema = joi.object({
     id: joi.string(),
     state: joi.string().valid(0, 1, 2, 3),
     like: joi.string(),
     date: joi.date(),
   });
-  return schema.validate(user);
+  return schema.validate(task);
 }
 
 module.exports = router;

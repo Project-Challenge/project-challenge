@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     const newAccessToken = jwt.sign(
       { id: decoded.id, username: decoded.username },
       process.env.ACCESS_SECRET_KEY,
-      { expiresIn: "10s" }
+      { expiresIn: ACCESS_EXPIRY }
     );
     logger.info(`New access token generated for "${decoded.username}"`);
     return res.send({
