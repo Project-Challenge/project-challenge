@@ -10,11 +10,11 @@ router.post("/", async (req, res) => {
   try {
     // input validation
     const result = await validateUser(req.body);
-    if (result.error)  {
+    if (result.error) {
       logger.info(result.error.details[0].message);
-      return res.status(403).send({error: result.error.details[0].message});
+      return res.status(403).send({ error: result.error.details[0].message });
     }
-    
+
     const { username, password, remember } = req.body;
     // get the data from mongoDB
     const user = await UserModel.findOne({ username });
@@ -35,22 +35,28 @@ router.post("/", async (req, res) => {
         { $set: { lastLoginDate: new Date() } }
       );
     } catch (error) {
-      logger.error(`Error occurred while updating lastLoginDate for user "${user._id}": ${error}`);
+      logger.error(
+        `Error occurred while updating lastLoginDate for user "${user._id}": ${error}`
+      );
       return res.status(500).json({ error: "Internal server error" });
     }
-    // generate tokens
+    // generate tokens 
     if (remember === 'true'){ // Do NOT change this
       const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.REFRESH_SECRET_KEY, { expiresIn: process.env.REFRESH_EXPIRY });
       const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: process.env.ACCESS_EXPIRY });
       logger.debug(`User "${username}" logged in, with refresh`);
-      res.json({ accessToken, refreshToken, id:user.id, username: user.username });
+      res.json({
+        accessToken,
+        refreshToken,
+        id: user.id,
+        username: user.username,
+      });
     } else {
       //session token
       const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: process.env.SESSION_EXPIRY });
       logger.debug(`User "${username}" logged in`);
-      res.json({ accessToken, id:user.id, username: user.username });
+      res.json({ accessToken, id: user.id, username: user.username });
     }
-
   } catch (error) {
     logger.error(`Error occurred in login route: ${error}`);
     res.status(500).json({ error: "Internal server error" });
@@ -61,10 +67,9 @@ async function validateUser(user) {
   const schema = joi.object({
     username: joi.string().required(),
     password: joi.string().required(),
-    remember: joi.boolean().required()
+    remember: joi.boolean().required(),
   });
-  return schema.validate(user); 
+  return schema.validate(user);
 }
-
 
 module.exports = router;

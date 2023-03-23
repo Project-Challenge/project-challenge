@@ -1,4 +1,4 @@
-.loginControls:focus {
-    outline: none;
-    box-shadow: none;
-  }
+.loginControls:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}
