@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const logger = require("../../utils/logger");
 const UserModel = require("../../models/users");
 const joi = require("joi");
+require("dotenv").config();
 
 router.post("/", async (req, res) => {
   try {
