@@ -1,6 +1,6 @@
 export const ENDPOINTS = {
   baseURL: 'http://localhost:3001',
-  getTasks: '/getTasks',
+  tasks: '/tasks',
   loginUser: '/loginUser',
   searchPath: '/api/search_tools',
   authTokensPath: '/verifyToken/',

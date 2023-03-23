@@ -17,7 +17,7 @@ const UserChallenges = () => {
   }, [])
 
   const getChallenges = async () => {
-    const response = await api.get(ENDPOINTS.getTasks)
+    const response = await api.get(ENDPOINTS.tasks)
     if (response.status === 200) {
       setChallenges(response.data)
     } else
