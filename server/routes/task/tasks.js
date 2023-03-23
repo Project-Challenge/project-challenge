@@ -32,8 +32,8 @@ router.get("/", async (req, res) => {
     }
     logger.debug(`Tasks displayed`);
     res.send(tasks);
-  } catch (err) {
-    logger.error(err);
+  } catch (error) {
+    logger.error(error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });

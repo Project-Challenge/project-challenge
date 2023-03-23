@@ -41,19 +41,10 @@ router.post("/", async (req, res) => {
       );
       return res.status(500).json({ error: "Internal server error" });
     }
-    // generate tokens
-    if (remember === "true") {
-      // Do NOT change this
-      const refreshToken = jwt.sign(
-        { id: user.id, username: user.username },
-        process.env.REFRESH_SECRET_KEY,
-        { expiresIn: REFRESH_EXPIRY }
-      );
-      const accessToken = jwt.sign(
-        { id: user.id, username: user.username },
-        process.env.ACCESS_SECRET_KEY,
-        { expiresIn: ACCESS_EXPIRY }
-      );
+    // generate tokens 
+    if (remember === 'true'){ // Do NOT change this
+      const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.REFRESH_SECRET_KEY, { expiresIn: process.env.REFRESH_EXPIRY });
+      const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: process.env.ACCESS_EXPIRY });
       logger.debug(`User "${username}" logged in, with refresh`);
       res.json({
         accessToken,
@@ -63,11 +54,7 @@ router.post("/", async (req, res) => {
       });
     } else {
       //session token
-      const accessToken = jwt.sign(
-        { id: user.id, username: user.username },
-        process.env.ACCESS_SECRET_KEY,
-        { expiresIn: SESSION_EXPIRY }
-      );
+      const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: process.env.SESSION_EXPIRY });
       logger.debug(`User "${username}" logged in`);
       res.json({ accessToken, id: user.id, username: user.username });
     }
