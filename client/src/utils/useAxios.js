@@ -25,13 +25,7 @@ const useAxios = () => {
         refreshToken: tokens.refreshToken,
       }
     )
-    if ( typeof response.data.refreshToken !== 'undefined'){
-      localStorage.setItem('accessToken', JSON.stringify(response.data))
-      console.log("local")
-    } else {
-      sessionStorage.setItem('accessToken', JSON.stringify(response.data))
-      console.log("session")
-    }
+    localStorage.setItem('accessToken', JSON.stringify(response.data))
     setTokens(response.data)
     req.headers.Authorization = `Bearer ${response.data.accessToken}`
     return req
