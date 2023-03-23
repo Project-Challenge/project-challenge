@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
       return res.status(401).json({ error: "Access denied. No refresh token provided." });
     }
     const decoded = await jwt.verify(refreshToken, process.env.REFRESH_SECRET_KEY);
-    const newAccessToken = jwt.sign({ id: decoded.id, username: decoded.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: ACCESS_EXPIRY });
+    const newAccessToken = jwt.sign({ id: decoded.id, username: decoded.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: process.env.ACCESS_EXPIRY });
     logger.info(`New access token generated for "${decoded.username}"`);
     return res.send({ accessToken: newAccessToken,id: decoded.id, username: decoded.username });
   } catch (error) {
