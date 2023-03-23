@@ -28,14 +28,14 @@ const UserChallenges = () => {
     <>
       <NavbarComponent logoutUser={logoutUser} />
       <Container fluid style={{ padding: '0', overflowX: 'hidden' }}>
-      <Row noGutters>
-    {challenges &&
-      challenges.map((item, key) => (
-      <Col key={key}>
-        <ChallengeCard {...item} />
-      </Col>
-    ))}
-</Row>
+      <Row>
+        {challenges &&
+          challenges.map((item, key) => (
+          <Col key={key}>
+            <ChallengeCard {...item} />
+          </Col>
+        ))}
+    </Row>
 
       </Container>
     </>
