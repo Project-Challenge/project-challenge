@@ -45,7 +45,11 @@ const AuthProvider = ({ children }) => {
     if (!data.error) {
       setTokens(data)
       setUser(jwt_decode(data.accessToken))
-      localStorage.setItem('accessToken', JSON.stringify(data))
+      if (data.refreshToken) {
+        localStorage.setItem('accessToken', JSON.stringify(data)) 
+      } else {
+        sessionStorage.setItem('accessToken', JSON.stringify(data))
+      }
       navigate('/challenges')
       toast('Logged in!', { theme: 'colored', type: 'success' })
     } else {
@@ -56,6 +60,7 @@ const AuthProvider = ({ children }) => {
     setTokens(null)
     setUser(null)
     localStorage.removeItem('accessToken')
+    sessionStorage.removeItem('accessToken')
     navigate('/login')
     toast('Logged out!', { theme: 'colored', type: 'success' })
   }
