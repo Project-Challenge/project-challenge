@@ -26,7 +26,6 @@ const AuthProvider = ({ children }) => {
     let response
     let data
     try {
-      console.log(e.target.remember.value)
       response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.loginUser, {
         method: 'POST',
         headers: {

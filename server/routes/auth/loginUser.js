@@ -39,12 +39,13 @@ router.post("/", async (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
     // generate tokens
-    const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: "5m" });
     if (remember === 'true'){ // Do NOT change this
       const refreshToken = jwt.sign({ id: user.id, username: user.username }, process.env.REFRESH_SECRET_KEY, { expiresIn: "30d" });
+      const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: "5m" });
       logger.debug(`User "${username}" logged in, with refresh`);
       res.json({ accessToken, refreshToken, id:user.id, username: user.username });
     } else {
+      const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.ACCESS_SECRET_KEY, { expiresIn: "24h" });
       logger.debug(`User "${username}" logged in`);
       res.json({ accessToken, id:user.id, username: user.username });
     }
