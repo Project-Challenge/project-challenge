@@ -10,7 +10,8 @@ const AuthProvider = ({ children }) => {
   const [tokens, setTokens] = useState(() =>
     localStorage.getItem('accessToken')
       ? JSON.parse(localStorage.getItem('accessToken'))
-      : null
+      : JSON.parse(sessionStorage.getItem('accessToken')) 
+      || null
   )
   const [user, setUser] = useState(() =>
     localStorage.getItem('accessToken')
