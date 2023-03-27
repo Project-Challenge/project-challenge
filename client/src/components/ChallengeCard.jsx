@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap'
 
-function ChallengeCard({ title, description }) {
+function ChallengeCard({ title, description, username, createdBy }) {
   return (
     <Card
       style={{
@@ -8,7 +8,7 @@ function ChallengeCard({ title, description }) {
         width: '25rem',
       }}>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title>{title} {createdBy.username}</Card.Title>
         <Card.Text>{description}</Card.Text>
       </Card.Body>
     </Card>

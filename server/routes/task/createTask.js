@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       creationDate: new Date(),
-      createdBy: "placeholder",
+      createdBy: req.body.createdBy,
       state: 0
     });
     await newTask.save();
@@ -36,6 +36,11 @@ async function validateTask(task) {
     "any.required": "Title is required",
     "string.empty": "Title is required"
     }),
+    createdBy: joi.string().required().messages({
+      "string.base": "User ID must be a string",
+      "any.required": "User ID is required",
+      "string.empty": "User ID is required"
+      }),
     description: joi.string().max(120).messages({
       "string.base": "Description must be a string",
       "string.max": "Description cannot be more than 120 characters long",
