@@ -4,7 +4,7 @@ import useAxios from '../utils/useAxios'
 import { ENDPOINTS } from '../const/endpoints'
 import { toast } from 'react-toastify'
 import ChallengeCard from '../components/ChallengeCard'
-import { CardGroup, Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
 
 const UserChallenges = () => {
@@ -27,16 +27,16 @@ const UserChallenges = () => {
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} />
-      <Container fluid style={{ padding: '0', overflowX: 'hidden' }}>
-      <Row>
-        {challenges &&
-          challenges.map((item, key) => (
-          <Col key={key}>
-            <ChallengeCard {...item} />
-          </Col>
-        ))}
-    </Row>
-
+      <Container
+        style={{ padding: '0', overflowX: 'hidden', paddingTop: '1rem' }}>
+        <Row className='justify-content-center'>
+          {challenges &&
+            challenges.map((item, key) => (
+              <Col key={key} md={4} style={{ marginBottom: '20px' }}>
+                <ChallengeCard key={key} {...item} />
+              </Col>
+            ))}
+        </Row>
       </Container>
     </>
   )
