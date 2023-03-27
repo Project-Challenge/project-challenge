@@ -31,7 +31,7 @@ const TaskSchema = new mongoose.Schema({
     startDate: { // if there is no start/end date treat as indefinite
       type: String,
       required: false,
-    },
+    }, 
     endDate: {  
       type: String,
       required: false,
@@ -40,6 +40,7 @@ const TaskSchema = new mongoose.Schema({
     createdBy: { // userID
       type: String,
       required: true,
+      ref: 'users'
     },
     finishedBy: { // userID
       type: String,

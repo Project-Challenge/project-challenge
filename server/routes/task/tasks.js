@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
       ...(req.body.like && {
         $or: [
           { title: { $regex: req.body.like, $options: "i" } },
-          { description: { $regex: req.body.like, $options: "i" } },
+          { description: { $regex: req.body.like, $options: "i" } },  
         ],
       }),
       ...(req.body.date && {
@@ -25,13 +25,15 @@ router.get("/", async (req, res) => {
         startDate: { $lt: new Date() },
       }),
     };
-    const tasks = await TaskModel.find(query);
-    if (!tasks || tasks.length === 0) {
-      logger.debug("No tasks found");
-      return res.status(404).send({ error: "No tasks" });
-    }
-    logger.debug(`Tasks displayed`);
-    res.send(tasks);
+    
+      const tasks = await TaskModel.find(query).populate('createdBy', 'username');
+      if (!tasks || tasks.length === 0) {
+        logger.debug("No tasks found");
+        return res.status(404).send({ error: "No tasks" });
+      }
+      logger.debug(`Tasks displayed`);
+      res.send(tasks);
+
   } catch (error) {
     logger.error(error);
     res.status(500).send({ error: "Internal Server Error" });
