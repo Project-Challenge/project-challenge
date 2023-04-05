@@ -1,7 +1,13 @@
 import { Card, Button } from 'react-bootstrap'
 import { changeCardColor } from '../utils/changeCardColor'
 import '../../public/styles/ChallengeCard.css'
-function ChallengeCard({
+import useAxios from '../utils/useAxios'
+
+// const markAsCompleted = (id) =>{
+//   const api = useAxios()
+// }
+const ChallengeCard = ({
+  _id,
   title,
   description,
   state,
@@ -10,32 +16,30 @@ function ChallengeCard({
   pendingDate,
   finishedBy,
   updatedAt,
-}) {
+})=> {
   return (
     <Card>
       <Card.Body>
         <Card.Text className='title' style={{ color: changeCardColor(state) }}>
           {title}
         </Card.Text>
-        <Card.Text>{description}</Card.Text>
-        <Card.Text>Created By: {createdBy}</Card.Text>
+        <Card.Text>{createdBy.username}</Card.Text>
         <Card.Text>
           Creation Date: {new Date(creationDate).toLocaleString()}
         </Card.Text>
-        {state === 1 && (
-          <>
-            <Card.Text>
+        {pendingDate && (<Card.Text>
               Pending Date: {new Date(pendingDate).toLocaleString()}
-            </Card.Text>
-            <Button className='button'>Mark as Completed</Button>
+            </Card.Text>)}
+        <Card.Text style={{color: "gray"}}>{description}</Card.Text>
+        {state === 0 && (
+          <>
+            
+            <Button className='button' onClick={()=>{}}>Mark as Completed</Button>
           </>
         )}
         {state === 2 && (
           <>
-            <Card.Text>Finished By: {finishedBy}</Card.Text>
-            <Card.Text>
-              Finished Date: {new Date(updatedAt).toLocaleString()}
-            </Card.Text>
+            UKONCZON
           </>
         )}
       </Card.Body>

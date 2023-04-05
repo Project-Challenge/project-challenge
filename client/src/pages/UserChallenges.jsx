@@ -15,11 +15,11 @@ const UserChallenges = () => {
   useEffect(() => {
     getChallenges()
   }, [])
-
+  useEffect(()=>{console.log(challenges)},[challenges])
   const getChallenges = async () => {
     const response = await api.get(ENDPOINTS.tasks)
     if (response.status === 200) {
-      setChallenges(response.data)
+      setChallenges(response.data.sort((item1, item2)=> (item1.state < item2.state) ? -1 : 1))
     } else
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
