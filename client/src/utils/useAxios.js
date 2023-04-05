@@ -20,7 +20,7 @@ const useAxios = () => {
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     if (!isExpired) return req
     const response = await axios.post(
-      ENDPOINTS.baseURL + ENDPOINTS.authTokensRefreshPath,
+      ENDPOINTS.baseURL + ENDPOINTS.refreshToken,
       {
         refreshToken: tokens.refreshToken,
       }
