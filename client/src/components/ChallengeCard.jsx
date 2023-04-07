@@ -3,9 +3,10 @@ import { changeCardColor } from '../utils/changeCardColor'
 import '../../public/styles/ChallengeCard.css'
 import useAxios from '../utils/useAxios'
 
-// const markAsCompleted = (id) =>{
-//   const api = useAxios()
-// }
+const markAsCompleted = async (id) =>{
+  const api = useAxios()
+  const response = await api.post(()=>{})
+}
 const ChallengeCard = ({
   _id,
   title,
