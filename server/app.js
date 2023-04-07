@@ -1,36 +1,40 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("./utils/logger");
-const cors = require('cors')
-require('dotenv').config();
+const cors = require("cors");
+
+require("dotenv").config();
+
 const app = express();
 
 // Connect to database
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  logger.info("Connected to MongoDB");
-}).catch((error) => {
-  logger.error(error);
-});
-  
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    logger.info("Connected to MongoDB");
+  })
+  .catch((error) => {
+    logger.error(error);
+    console.log(error);
+  });
+
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 // Routes
-app.use("/registerUser", require("./routes/auth/registerUser"));
-app.use("/loginUser", require("./routes/auth/loginUser"));
-app.use("/verifyToken", require("./routes/auth/verifyToken"));
-app.use("/refreshToken", require("./routes/auth/refreshToken"));
-app.use("/users", require("./routes/auth/users"))
-
-app.use("/createTask", require("./routes/task/createTask"));
-app.use("/pendingTask", require("./routes/task/pendingTask"));
-app.use("/finishedTask", require("./routes/task/finishedTask"));
-app.use("/revertTask", require("./routes/task/revertTask"));
-app.use("/tasks", require("./routes/task/tasks"));
+app.use("/api/auth/register", require("./routes/auth/register"));
+app.use("/api/auth/login", require("./routes/auth/login"));
+app.use("/api/auth/verify", require("./routes/auth/verify"));
+app.use("/api/auth/refresh", require("./routes/auth/refresh"));
+app.use("/api/tasks/create", require("./routes/tasks/create"));
+app.use("/api/tasks/pending", require("./routes/tasks/pending"));
+app.use("/api/tasks/finish", require("./routes/tasks/finish"));
+app.use("/api/tasks/revert", require("./routes/tasks/revert"));
+app.use("/api/tasks", require("./routes/tasks/tasks"));
 
 // Error handling middleware
 app.use((error, req, res, next) => {
