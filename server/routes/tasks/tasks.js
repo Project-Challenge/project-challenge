@@ -28,9 +28,9 @@ router.get("/", async (req, res) => {
     const tasks = await TaskModel.find(query);
     if (!tasks || tasks.length === 0) {
       logger.debug("No tasks found");
-      return res.status(404).send({ error: "No tasks" });
+      return res.status(404).send({ error: "No tasks found" });
     }
-    logger.debug(`Tasks displayed`);
+    logger.debug(`Task/s displayed`);
     res.send(tasks);
   } catch (err) {
     logger.error(err);
@@ -38,14 +38,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-async function validateTask(user) {
+async function validateTask(task) {
   const schema = joi.object({
     id: joi.string(),
     state: joi.string().valid(0, 1, 2, 3),
     like: joi.string(),
     date: joi.date(),
   });
-  return schema.validate(user);
+  return schema.validate(task);
 }
 
 module.exports = router;
