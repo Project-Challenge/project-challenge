@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LogIn from './pages/LogIn'
+import Register from './pages/Register'
 import AuthProvider from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
 import UserChallenges from './pages/UserChallenges'
@@ -16,6 +17,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path='/login' element={<LogIn />} />
+          <Route path='/register' element={<Register />} />
           <Route element={<PrivateRoutes />}>
             <Route path='/challenges' element={<UserChallenges />} />
             <Route path='/contact' element={<>cont</>} />

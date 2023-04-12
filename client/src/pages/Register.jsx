@@ -2,23 +2,23 @@ import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { AuthContext } from '../context/AuthContext'
 import "../../public/styles/Auth.css"
-const LogIn = () => {
+const Register = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const [remember, setRemember] = useState(false)
-  const { loginUser } = useContext(AuthContext)
-  
+  const [repeatPassword, setRepeatPassword] = useState('')
+  const { registerUser } = useContext(AuthContext)
+  // add password match checking
   return (
     <div style={{backgroundColor: ""}}>
       <Container
         style={{ height: '100vh'}}
         className='d-flex flex-column align-items-center justify-content-center'>
         <div className='d-flex flex-column align-items-center justify-content-center' style={{zIndex: "20", marginBottom: "-1.75rem", backgroundColor: "white", paddingLeft:"5px", paddingRight:"5px"}}>
-            <h1>Login</h1>
+            <h1>Register</h1>
           </div>
         <Card style={{ width: '400px', padding: '20px', border: "3px solid black"}}>
         
-          <Form onSubmit={loginUser}>
+          <Form onSubmit={registerUser}>
             <Form.Group>
               <Form.Label>Login</Form.Label>
               <Form.Control
@@ -43,20 +43,23 @@ const LogIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='Password...'
               />
-            </Form.Group>
-              <div className="d-flex flex-row gap-3 align-items-center justify-content-between">
-              <Form.Check
-                style={{ paddingTop: '1rem'}}
-                type='switch'
-                name='remember'
-                value={remember}
-                label='Remember me'
-                onChange={(e) => setRemember(!remember)}
+              <Form.Label style={{ paddingTop: '1rem', textDecorationThickness:"1rem" }}>Repeat the password</Form.Label>
+              <Form.Control
+              style={{border: "2px solid black"}}
+                type='repeatPassword'
+                className="loginControls"
+                value={repeatPassword}  
+                name='repeatPassword'
+                onChange={(e) => setRepeatPassword(e.target.value)}
+                placeholder='Password...'
               />
+            </Form.Group>
+              <div className="d-flex flex-row gap-3 align-items-center justify-content-between">  
+              <div></div>
               <Button
                 variant='primary'
                 type='submit'
-                style={{ marginTop: '1rem', zIndex: "20", marginBottom: "-4rem", backgroundColor:"white", border: "none", color: "black", paddingBottom:"0px", paddingLeft: "5px", paddingRight: "5px", marginLeft:"5px", marginRight:"5px", }}>
+                style={{ marginTop: '1rem', zIndex: "2", marginBottom: "-2.5rem", backgroundColor:"white", border: "none", color: "black", paddingBottom:"0px", paddingLeft: "5px", paddingRight: "5px", marginLeft:"5px", marginRight:"5px", }}>
                 <h5>Submit</h5>
               </Button>
             </div>
@@ -67,4 +70,4 @@ const LogIn = () => {
   )
 }
 
-export default LogIn
+export default Register
