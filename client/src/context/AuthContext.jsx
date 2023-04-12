@@ -22,6 +22,34 @@ const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate()
 
+  const registerUser = async (e) => {
+    e.preventDefault()
+    let response
+    let data
+    try {
+      response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.registerUser, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': ENDPOINTS.baseURL,
+        },
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      })
+      data = await response.json()
+    } catch (error) {
+      console.error(error)
+    }
+    if (!data.error) {
+      navigate('/login')
+      toast('Registered!', { theme: 'colored', type: 'success' })
+    } else {
+      toast(data.error, { theme: 'colored', type: 'error' })
+    }
+  }
+  
   const loginUser = async (e) => {
     e.preventDefault()
     let response
@@ -72,6 +100,7 @@ const AuthProvider = ({ children }) => {
     setTokens: setTokens,
     setUser: setUser,
     loginUser: loginUser,
+    registerUser: registerUser,
     logoutUser: logoutUser,
   }
 
