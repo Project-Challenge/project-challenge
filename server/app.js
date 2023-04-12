@@ -34,7 +34,7 @@ app.use("/api/tasks/create", require("./routes/tasks/create"));
 app.use("/api/tasks/pending", require("./routes/tasks/pending"));
 app.use("/api/tasks/finish", require("./routes/tasks/finish"));
 app.use("/api/tasks/revert", require("./routes/tasks/revert"));
-app.use("/api/tasks", require("./routes/tasks/tasks/"));
+app.use("/api/tasks", require("./routes/tasks/tasks"));
 
 // Error handling middleware
 app.use((error, req, res, next) => {

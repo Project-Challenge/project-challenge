@@ -13,14 +13,14 @@ router.get("/", async (req, res) => {
     }
     const query = {
       ...(req.body.id && { _id: req.body.id }),
-      ...(req.body.username && { _id: req.body.username }),
+      ...(req.body.username && { username: req.body.username }),
       ...(req.body.like && {
         $or: [
           { username: { $regex: req.body.like, $options: "i" } },
         ],
       }),
     };
-    const users = await UserModel.find(query).select("_id, username, points, isAdmin");
+    const users = await UserModel.find(query).select("_id, username, points, lastLoginDate, registeredDate, isAdmin");
     if (!users || users.length === 0) {
       logger.debug("No users found");
       return res.status(404).send({ error: "No users found" });
