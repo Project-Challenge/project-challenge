@@ -19,19 +19,15 @@ const useAxios = () => {
     const user = jwt_decode(tokens.accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     if (!isExpired) return req
-    if (tokens.refreshToken){
-      const response = await axios.post(
-        ENDPOINTS.baseURL + ENDPOINTS.authTokensRefreshPath,
-        {
-         refreshToken: tokens.refreshToken,
-        }
-      )
-      localStorage.setItem('accessToken', JSON.stringify(response.data))
-      setTokens(response.data)
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`
-    } else {
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`
-    }
+    const response = await axios.post(
+      ENDPOINTS.baseURL + ENDPOINTS.refreshToken,
+      {
+        refreshToken: tokens.refreshToken,
+      }
+    )
+    localStorage.setItem('accessToken', JSON.stringify(response.data))
+    setTokens(response.data)
+    req.headers.Authorization = `Bearer ${response.data.accessToken}`
     return req
   })
 
