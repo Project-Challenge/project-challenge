@@ -1,12 +1,10 @@
-.cardHeader{
-    color: rgba(255, 255, 255, 0.9) !important;
-    border-bottom: 3px solid black !important;
-}
 .card{
     border-width: 3px !important;
     border-color: black !important;
     border-radius: 10px !important;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem !important;
+    height: 10rem !important;
+    
 }
 .title{
     margin-top: -2.25rem !important; 
@@ -23,4 +21,8 @@
     font-size: 1rem !important;
     margin-bottom: -3rem;
     font-weight: bold !important;
+}
+.description{
+    overflow: hidden !important;
+    text-overflow: ellipsis;
 }

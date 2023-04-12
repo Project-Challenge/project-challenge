@@ -14,6 +14,7 @@ const UserChallenges = () => {
 
   useEffect(() => {
     getChallenges()
+    console.log("doopa")
   }, [])
   useEffect(()=>{console.log(challenges)},[challenges])
   const getChallenges = async () => {
@@ -23,7 +24,10 @@ const UserChallenges = () => {
     } else
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
-
+  const markAsCompleted = async (id) =>{
+    const response = await api.post(ENDPOINTS.pendingTask,{id})
+    console.log(response)
+  }
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} />
@@ -32,8 +36,8 @@ const UserChallenges = () => {
         <Row className='justify-content-center'>
           {challenges &&
             challenges.map((item, key) => (
-              <Col key={key} md={4} style={{ marginBottom: '20px' }}>
-                <ChallengeCard key={key} {...item} />
+              <Col key={key} md={4}>
+                <ChallengeCard key={key} markAsCompleted={markAsCompleted} {...item} />
               </Col>
             ))}
         </Row>
