@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
         ],
       }),
     };
-    const users = await UserModel.find(query).select("_id, username, points, lastLoginDate, registeredDate, isAdmin");
+    const users = await UserModel.find(query).select("_id username points lastLoginDate registeredDate isAdmin");
     if (!users || users.length === 0) {
       logger.debug("No users found");
       return res.status(404).send({ error: "No users found" });
