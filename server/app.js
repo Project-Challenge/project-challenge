@@ -28,13 +28,13 @@ app.use("/api/auth/login", require("./routes/auth/login"));
 app.use("/api/auth/verify", require("./routes/auth/verify"));
 app.use("/api/auth/refresh", require("./routes/auth/refresh"));
 
-app.use("/api/users", require("./routes/tasks"));
+app.use("/api/users", require("./routes/users/users"));
 
 app.use("/api/tasks/create", require("./routes/tasks/create"));
 app.use("/api/tasks/pending", require("./routes/tasks/pending"));
 app.use("/api/tasks/finish", require("./routes/tasks/finish"));
 app.use("/api/tasks/revert", require("./routes/tasks/revert"));
-app.use("/api/tasks", require("./routes/tasks/tasks"));
+app.use("/api/tasks", require("./routes/tasks/tasks/"));
 
 // Error handling middleware
 app.use((error, req, res, next) => {
