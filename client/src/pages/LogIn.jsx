@@ -44,19 +44,30 @@ const LogIn = () => {
                 placeholder='Password...'
               />
             </Form.Group>
-              <div className="d-flex flex-row gap-3 align-items-center justify-content-between">
-              <Form.Check
-                style={{ paddingTop: '1rem'}}
+            <Form.Check
+                style={{ paddingTop: '0.5rem'}}
                 type='switch'
                 name='remember'
                 value={remember}
                 label='Remember me'
                 onChange={(e) => setRemember(!remember)}
               />
+            <p className="text-center"                 
+              style={{ paddingTop: '1rem'}}
+            >
+              <i>
+                Don't have an account?{" "}
+              </i>
+              <a href="/register" className="text-decoration-underline">
+                Register
+              </a>
+            </p>
+            <div className="d-flex flex-row gap-3 align-items-center justify-content-between">
+              <div></div>
               <Button
                 variant='primary'
                 type='submit'
-                style={{ marginTop: '1rem', zIndex: "20", marginBottom: "-4rem", backgroundColor:"white", border: "none", color: "black", paddingBottom:"0px", paddingLeft: "5px", paddingRight: "5px", marginLeft:"5px", marginRight:"5px", }}>
+                style={{ marginTop: '-1.5rem', zIndex: "20", marginBottom: "-4rem", backgroundColor:"white", border: "none", color: "black", paddingBottom:"0px", paddingLeft: "5px", paddingRight: "5px", marginLeft:"5px", marginRight:"5px", }}>
                 <h5>Submit</h5>
               </Button>
             </div>

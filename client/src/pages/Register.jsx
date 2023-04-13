@@ -7,7 +7,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   const { registerUser } = useContext(AuthContext)
-  // add password match checking
+  // add redirects to login/register
   return (
     <div style={{backgroundColor: ""}}>
       <Container
@@ -46,7 +46,7 @@ const Register = () => {
               <Form.Label style={{ paddingTop: '1rem', textDecorationThickness:"1rem" }}>Repeat the password</Form.Label>
               <Form.Control
               style={{border: "2px solid black"}}
-                type='repeatPassword'
+                type='password'
                 className="loginControls"
                 value={repeatPassword}  
                 name='repeatPassword'
@@ -54,7 +54,17 @@ const Register = () => {
                 placeholder='Password...'
               />
             </Form.Group>
-              <div className="d-flex flex-row gap-3 align-items-center justify-content-between">  
+            <p className="text-center"                 
+              style={{ paddingTop: '1rem'}}
+            >
+              <i>
+                Already have an account?{" "}
+              </i>
+              <a href="/login" className="text-decoration-underline">
+                Login
+              </a>
+            </p>
+            <div className="d-flex flex-row gap-3 align-items-center justify-content-between">  
               <div></div>
               <Button
                 variant='primary'
