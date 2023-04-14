@@ -17,7 +17,7 @@ const ChallengeCard = ({
   markAsCompleted
 })=> {
   return (
-    <Card>
+    <Card className='challengeCard'>
       <Card.Body>
         <Card.Text className='title' style={{ color: changeCardColor(state) }}>
           {title}
@@ -29,10 +29,9 @@ const ChallengeCard = ({
         {pendingDate && (<Card.Text>
               Pending Date: {new Date(pendingDate).toLocaleString()}
             </Card.Text>)}
-        <Card.Text className='description' style={{color: "gray"}}>{description}</Card.Text>
+        <Card.Text className='description'>{description}</Card.Text>
         {state === 0 && (
           <>
-            
             <Button className='button' onClick={()=>{markAsCompleted(_id)}}>Mark as Completed</Button>
           </>
         )}

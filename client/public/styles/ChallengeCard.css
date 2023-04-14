@@ -1,9 +1,19 @@
-.card{
+.challengeCard{
     border-width: 3px !important;
     border-color: black !important;
     border-radius: 10px !important;
     margin-bottom: 3rem !important;
     height: 10rem !important;
+}
+.challengeCard:hover{
+    height: fit-content !important;
+}
+.challengeCard:hover .description{
+    white-space: wrap;
+    overflow: visible;
+    white-space: normal;
+    z-index: 20;
+    
     
 }
 .title{
@@ -23,6 +33,8 @@
     font-weight: bold !important;
 }
 .description{
+    color: gray;
+    white-space: nowrap;
     overflow: hidden !important;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis !important;
 }

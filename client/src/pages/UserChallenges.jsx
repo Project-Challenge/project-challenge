@@ -14,7 +14,6 @@ const UserChallenges = () => {
 
   useEffect(() => {
     getChallenges()
-    console.log("doopa")
   }, [])
   useEffect(()=>{console.log(challenges)},[challenges])
   const getChallenges = async () => {
@@ -26,7 +25,6 @@ const UserChallenges = () => {
   }
   const markAsCompleted = async (id) =>{
     const response = await api.post(ENDPOINTS.pendingTask,{id})
-    console.log(response)
   }
   return (
     <>
