@@ -15,16 +15,23 @@ const UserChallenges = () => {
   useEffect(() => {
     getChallenges()
   }, [])
-  useEffect(()=>{console.log(challenges)},[challenges])
+  useEffect(() => {
+    console.log(challenges)
+  }, [challenges])
   const getChallenges = async () => {
     const response = await api.get(ENDPOINTS.tasks)
     if (response.status === 200) {
-      setChallenges(response.data.sort((item1, item2)=> (item1.state < item2.state) ? -1 : 1))
+      setChallenges(
+        response.data.sort((item1, item2) =>
+          item1.state < item2.state ? -1 : 1
+        )
+      )
     } else
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
-  const markAsCompleted = async (id) =>{
-    const response = await api.post(ENDPOINTS.pendingTask,{id})
+  const markAsCompleted = async (id) => {
+    const response = await api.post(ENDPOINTS.pendingTask, { id })
+    getChallenges()
   }
   return (
     <>
@@ -35,7 +42,11 @@ const UserChallenges = () => {
           {challenges &&
             challenges.map((item, key) => (
               <Col key={key} md={4}>
-                <ChallengeCard key={key} markAsCompleted={markAsCompleted} {...item} />
+                <ChallengeCard
+                  key={key}
+                  markAsCompleted={markAsCompleted}
+                  {...item}
+                />
               </Col>
             ))}
         </Row>

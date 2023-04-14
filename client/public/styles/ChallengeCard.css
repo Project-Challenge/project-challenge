@@ -3,7 +3,6 @@
     border-color: black !important;
     border-radius: 10px !important;
     margin-bottom: 3rem !important;
-    height: 10rem !important;
 }
 .challengeCard:hover{
     height: fit-content !important;
@@ -13,8 +12,6 @@
     overflow: visible;
     white-space: normal;
     z-index: 20;
-    
-    
 }
 .title{
     margin-top: -2.25rem !important; 
