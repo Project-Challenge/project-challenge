@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
+import { ENDPOINTS } from '../const/endpoints'
+
 import { AuthContext } from '../context/AuthContext'
-import "../../public/styles/Auth.css"
+import "../../public/styles/Form.css"
 const LogIn = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')

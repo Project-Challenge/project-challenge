@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { AuthContext } from '../context/AuthContext'
-import "../../public/styles/Auth.css"
+import "../../public/styles/Form.css"
 const Register = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   const { registerUser } = useContext(AuthContext)
-  // add redirects to login/register
+
   return (
     <div style={{backgroundColor: ""}}>
       <Container

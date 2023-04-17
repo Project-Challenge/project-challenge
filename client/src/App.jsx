@@ -4,6 +4,7 @@ import Register from './pages/Register'
 import AuthProvider from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
 import UserChallenges from './pages/UserChallenges'
+import AddChallenge from './pages/AddChallenge'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route element={<PrivateRoutes />}>
             <Route path='/challenges' element={<UserChallenges />} />
+            <Route path='/addChallenge' element={<AddChallenge />} />
             <Route path='/contact' element={<>cont</>} />
             <Route path='*' element={<>Error 404: Page not found</>} />
           </Route>
