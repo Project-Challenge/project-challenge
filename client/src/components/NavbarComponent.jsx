@@ -25,6 +25,7 @@ const NavbarComponent = ({ logoutUser }) => {
       <Navbar.Collapse className='justify-content-end'>
         <Nav style={{ marginRight: '1.5rem', paddingLeft: '1.5rem' }}>
           <Nav.Link to='/challanges'>Home</Nav.Link>
+          <Nav.Link to='/addChallange'>New challenge</Nav.Link>
           <NavDropdown className='my-dropdown' title='Settings' drop='start'>
             <NavDropdown.Item to='/action-1'>Settings</NavDropdown.Item>
             <NavDropdown.Divider />

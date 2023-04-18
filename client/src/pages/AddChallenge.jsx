@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ENDPOINTS } from '../const/endpoints'
+import NavbarComponent from '../components/NavbarComponent'
 import { toast } from 'react-toastify'
 import "../../public/styles/Form.css"
 
@@ -28,7 +29,7 @@ const AddChallenges = () => {
         body: JSON.stringify({
           title: e.target.title.value,
           createdBy: "643c2c8a72f88db191a1d185", // this is supposed to be the current user's id
-          recipient: "placeholder", // recipent's id found from their username, or chosen from a list 
+          // recipient: "placeholder", // recipent's id found from their username, or chosen from a list 
           description: e.target.description.value,
         }),
       })
@@ -46,6 +47,7 @@ const AddChallenges = () => {
   
   return (
     <div style={{backgroundColor: ""}}>
+      <NavbarComponent />
       <Container
         style={{ height: '100vh'}}
         className='d-flex flex-column align-items-center justify-content-center'>
