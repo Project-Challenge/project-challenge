@@ -7,13 +7,26 @@ import { toast } from 'react-toastify'
 import "../../public/styles/Form.css"
 
 
-const AddChallenges = () => {
+const AddChallenge = () => {
   
   const navigate = useNavigate()
   
   const [title, setTitle] = useState('')
   const [recipient, setRecipient] = useState('')
   const [description, setDescription] = useState('')
+
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.users)
+        const data = await response.json()
+        setUsers(data)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    getUsers()
+  }, [])
 
   const createTask = async (e) => {
     e.preventDefault()
@@ -28,8 +41,8 @@ const AddChallenges = () => {
         },
         body: JSON.stringify({
           title: e.target.title.value,
-          createdBy: "643c2c8a72f88db191a1d185", // this is supposed to be the current user's id
-          // recipient: "placeholder", // recipent's id found from their username, or chosen from a list 
+          author: "643c2c8a72f88db191a1d185", // this is supposed to be the current user's id
+          recipient: e.target.recipient.value,
           description: e.target.description.value,
         }),
       })
@@ -74,7 +87,7 @@ const AddChallenges = () => {
                 <Form.Label>Recipient</Form.Label>
                 <Form.Control 
                   style={{border: "2px solid black"}} 
-                  type='text' 
+                  as='select'
                   className="loginControls" 
                   value={recipient} 
                   name='recipient' 
@@ -111,4 +124,4 @@ const AddChallenges = () => {
   )
 }
 
-export default AddChallenges
+export default AddChallenge

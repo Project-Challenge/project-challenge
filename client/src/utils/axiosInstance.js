@@ -30,7 +30,6 @@ axiosInstance.interceptors.request.use(async (req) => {
     }
   )
   localStorage.setItem('accessToken', JSON.stringify(response.data))
-  console.log(response + 'DUPADUPADUPA')
   req.headers.Authorization = `Bearer ${response.data.accessToken.accessToken}`
   return req
 })

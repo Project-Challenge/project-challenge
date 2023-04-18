@@ -19,7 +19,7 @@ const TaskSchema = new mongoose.Schema({
       type: Date,
       required: true,
     },
-   pendingDate: {
+    pendingDate: {
       type: Date,
       required: false,
     },
@@ -27,28 +27,25 @@ const TaskSchema = new mongoose.Schema({
       type: Date,
       required: false,
     },
-    
-    startDate: { // if there is no start/end date treat as indefinite
-      type: String,
-      required: false,
-    }, 
-    endDate: {  
-      type: String,
-      required: false,
-    },
-    
-    createdBy: { // userID
+    author: {
       type: String,
       required: true,
       ref: 'users'
     },
-    finishedBy: { // userID
+    recipeint: {
       type: String,
-      required: false,
+      required: true,
+      ref: 'users'
     },
-    verifiedBy: { // userID
+    finishedBy: { 
       type: String,
       required: false,
+      ref: 'users'
+    },
+    verifiedBy: {
+      type: String,
+      required: false,
+      ref: 'users'
     },
 });
 

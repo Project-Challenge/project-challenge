@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       creationDate: new Date(),
-      createdBy: req.body.createdBy,
+      author: req.body.author,
       state: 0
     });
     await newTask.save();
@@ -36,7 +36,7 @@ async function validateTask(task) {
     "any.required": "Title is required",
     "string.empty": "Title is required"
     }),
-    createdBy: joi.string().required().messages({
+    author: joi.string().required().messages({
       "string.base": "User ID must be a string",
       "any.required": "User ID is required",
       "string.empty": "User ID is required"
