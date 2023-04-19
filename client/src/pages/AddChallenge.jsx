@@ -43,7 +43,7 @@ const AddChallenge = () => {
         },
         body: JSON.stringify({
           title: e.target.title.value,
-          author: "675786rf",
+          author: "64138c1113228c5d9bc119e8",
           recipient: e.target.recipient.value,
           description: e.target.description.value,
         }),
