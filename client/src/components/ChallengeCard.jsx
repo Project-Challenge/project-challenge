@@ -3,6 +3,7 @@ import { changeCardColor } from '../utils/changeCardColor'
 import '../../public/styles/ChallengeCard.css'
 import useAxios from '../utils/useAxios'
 import { ENDPOINTS } from '../const/endpoints'
+import { useEffect,useState } from "react"
 
 const ChallengeCard = ({
   _id,
@@ -15,15 +16,23 @@ const ChallengeCard = ({
   pendingDate,
   finishedBy,
   updatedAt,
-  markAsCompleted
+  markAsCompleted,
+  markAsFinished
 })=> {
+  const [user,setUser] = useState(JSON.parse(localStorage.getItem('accessToken')||sessionStorage.getItem(accessToken)))
+  useEffect(()=>{console.log(user.id),[user]})
   return (
     <Card className='challengeCard'>
       <Card.Body>
+        
         <Card.Text className='title' style={{ color: changeCardColor(state) }}>
           {title}
         </Card.Text>
-        <Card.Text>{author && author.username}  {recipient && recipient.username}</Card.Text>
+        
+        <div className='usersInfo'>
+          <Card.Text>{author && author.username}</Card.Text>
+          <Card.Text className='description'>Verifier: {recipient && recipient.username}</Card.Text>
+        </div>
         <Card.Text>
           Creation Date: {new Date(creationDate).toLocaleString()}
         </Card.Text>
@@ -36,6 +45,7 @@ const ChallengeCard = ({
             <Button className='button' onClick={()=>{markAsCompleted(_id)}}>Mark as Completed</Button>
           </>
         )}
+        {state=== 1 && user.id === recipient._id &&(<Button className="button" onClick={()=>{markAsFinished(_id)}}>Confirm completion</Button>)}
         {state === 2 && (
           <>
             UKONCZON

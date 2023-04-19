@@ -35,3 +35,8 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
+.usersInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

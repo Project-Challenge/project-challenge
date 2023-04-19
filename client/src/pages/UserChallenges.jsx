@@ -33,6 +33,10 @@ const UserChallenges = () => {
     const response = await api.post(ENDPOINTS.pendingTask, { id })
     getChallenges()
   }
+  const markAsFinished = async (id) => {
+    const response=await api.post(ENDPOINTS.finishTask,{id})
+    getChallenges()
+  }
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} />
@@ -45,6 +49,7 @@ const UserChallenges = () => {
                 <ChallengeCard
                   key={key}
                   markAsCompleted={markAsCompleted}
+                  markAsFinished={markAsFinished}
                   {...item}
                 />
               </Col>
