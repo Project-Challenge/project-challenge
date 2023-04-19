@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const logger = require("../../utils/logger");
 const TaskModel = require("../../models/tasks.js");
+const authMiddleware = require("../../middlewares/auth");
 const joi = require("joi");
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const result = await validateTask(req.body);
     if (result.error) {
@@ -15,7 +16,7 @@ router.post("/", async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       creationDate: new Date(),
-      author: req.body.author,
+      author: req.user.id,
       recipient: req.body.recipient,
       state: 0,
     });
@@ -36,12 +37,7 @@ async function validateTask(task) {
       "string.max": "Title cannot be more than 40 characters long",
       "any.required": "Title is required",
       "string.empty": "Title is required",
-    }),
-    author: joi.string().required().messages({
-      "string.base": "User ID must be a string",
-      "any.required": "User ID is required",
-      "string.empty": "User ID is required",
-    }),
+    }), 
     recipient: joi.string().required().messages({
       "string.base": "Recipient must be a string",
       "any.required": "Recipient is required",

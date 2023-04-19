@@ -19,7 +19,15 @@ const UserChallenges = () => {
     console.log(challenges)
   }, [challenges])
   const getChallenges = async () => {
-    const response = await api.get(ENDPOINTS.tasks)
+    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+    const accessToken = auth?.accessToken
+    const response = await api.get(ENDPOINTS.tasks, {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken,
+      }
+    })
     if (response.status === 200) {
       setChallenges(
         response.data.sort((item1, item2) =>
@@ -30,7 +38,15 @@ const UserChallenges = () => {
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
   const markAsCompleted = async (id) => {
-    const response = await api.post(ENDPOINTS.pendingTask, { id })
+    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+    const accessToken = auth?.accessToken
+    const response = await api.post(ENDPOINTS.pendingTask, { id }, {
+      method : 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': accessToken,
+      }
+    })
     getChallenges()
   }
   return (
