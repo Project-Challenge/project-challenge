@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ENDPOINTS } from '../const/endpoints'
@@ -14,6 +14,7 @@ const AddChallenge = () => {
   const [title, setTitle] = useState('')
   const [recipient, setRecipient] = useState('')
   const [description, setDescription] = useState('')
+  const [users,setUsers] = useState([])
 
   useEffect(() => {
     const getUsers = async () => {
@@ -26,6 +27,7 @@ const AddChallenge = () => {
       }
     }
     getUsers()
+    console.log(users)
   }, [])
 
   const createTask = async (e) => {
@@ -41,7 +43,7 @@ const AddChallenge = () => {
         },
         body: JSON.stringify({
           title: e.target.title.value,
-          author: "643c2c8a72f88db191a1d185", // this is supposed to be the current user's id
+          author: "675786rf",
           recipient: e.target.recipient.value,
           description: e.target.description.value,
         }),
@@ -85,7 +87,7 @@ const AddChallenge = () => {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Recipient</Form.Label>
-                <Form.Control 
+                <Form.Select 
                   style={{border: "2px solid black"}} 
                   as='select'
                   className="loginControls" 
@@ -93,7 +95,11 @@ const AddChallenge = () => {
                   name='recipient' 
                   onChange={(e) => setRecipient(e.target.value)} 
                   placeholder='Username...'
-                />
+                >
+                  <option value="">--Select--</option>
+                  {users.map(user => (<option value={user._id} key={user._id}>{user.username}</option>))}
+
+                </Form.Select>
               </Form.Group>
             </Form.Group>
             <Form.Label style={{ paddingTop: '1rem', textDecorationThickness:"1rem" }}>Description</Form.Label>

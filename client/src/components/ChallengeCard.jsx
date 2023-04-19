@@ -22,7 +22,7 @@ const ChallengeCard = ({
         <Card.Text className='title' style={{ color: changeCardColor(state) }}>
           {title}
         </Card.Text>
-        <Card.Text>{author.username}</Card.Text>
+        <Card.Text>{author && author.username}</Card.Text>
         <Card.Text>
           Creation Date: {new Date(creationDate).toLocaleString()}
         </Card.Text>

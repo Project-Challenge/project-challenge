@@ -1,4 +1,5 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 import '../../public/styles/Navbar.css'
 
 const NavbarComponent = ({ logoutUser }) => {
@@ -24,8 +25,8 @@ const NavbarComponent = ({ logoutUser }) => {
       <Navbar.Toggle />
       <Navbar.Collapse className='justify-content-end'>
         <Nav style={{ marginRight: '1.5rem', paddingLeft: '1.5rem' }}>
-          <Nav.Link to='/challanges'>Home</Nav.Link>
-          <Nav.Link to='/addChallange'>New challenge</Nav.Link>
+          <NavLink to='/challenges'>Home</NavLink>
+          <NavLink to='/addChallenge'>New challenge</NavLink>
           <NavDropdown className='my-dropdown' title='Settings' drop='start'>
             <NavDropdown.Item to='/action-1'>Settings</NavDropdown.Item>
             <NavDropdown.Divider />
