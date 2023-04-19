@@ -22,12 +22,10 @@ router.get("/", async (req, res) => {
           { description: { $regex: req.body.like, $options: "i" } },
         ],
       }),
-      ...(req.body.date && {
-        endDate: { $gt: new Date() },
-        startDate: { $lt: new Date() },
-      }),
     };
-    const tasks = await TaskModel.find(query);
+    const tasks = await TaskModel.find(query)
+      .populate('author', 'username')
+      .populate('recipient', 'username');
     if (!tasks || tasks.length === 0) {
       logger.debug("No tasks found");
       return res.status(404).send({ error: "No tasks found" });
