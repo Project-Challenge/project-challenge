@@ -22,10 +22,6 @@ router.get("/", async (req, res) => {
           { description: { $regex: req.body.like, $options: "i" } },
         ],
       }),
-      ...(req.body.date && {
-        endDate: { $gt: new Date() },
-        startDate: { $lt: new Date() },
-      }),
     };
     const tasks = await TaskModel.find(query)
       .populate('author', 'username')
