@@ -13,6 +13,8 @@ router.get("/", async (req, res) => {
     }
     const query = {
       ...(req.body.id && { _id: req.body.id }),
+      ...(req.body.author && { _id: req.body.author }),
+      ...(req.body.recipient && { _id: req.body.recipient }),
       ...(req.body.state && { state: req.body.state }),
       ...(req.body.like && {
         $or: [
@@ -42,6 +44,8 @@ async function validateTask(task) {
   const schema = joi.object({
     id: joi.string(),
     state: joi.string().valid(0, 1, 2, 3),
+    author: joi.string(),
+    recipient: joi.string(),
     like: joi.string(),
     date: joi.date(),
   });
