@@ -16,7 +16,6 @@ const UserChallenges = () => {
     getChallenges()
   }, [])
   useEffect(() => {
-    console.log(challenges)
   }, [challenges])
   const getChallenges = async () => {
     const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
