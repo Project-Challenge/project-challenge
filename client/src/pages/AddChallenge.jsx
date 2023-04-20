@@ -14,12 +14,20 @@ const AddChallenge = () => {
   const [title, setTitle] = useState('')
   const [recipient, setRecipient] = useState('')
   const [description, setDescription] = useState('')
-  const [users,setUsers] = useState([])
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.users)
+        const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+        const accessToken = auth?.accessToken
+        const response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.users, {
+          method : 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': accessToken,
+          }
+        })
         const data = await response.json()
         setUsers(data)
       } catch (error) {
@@ -27,38 +35,39 @@ const AddChallenge = () => {
       }
     }
     getUsers()
-    console.log(users)
   }, [])
 
   const createTask = async (e) => {
-    e.preventDefault()
-    let response
-    let data
+    e.preventDefault();
+    let response;
+    let data;
     try {
+      const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+      const accessToken = auth?.accessToken
       response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.createTask, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': ENDPOINTS.baseURL,
+          'Authorization': accessToken,
         },
         body: JSON.stringify({
           title: e.target.title.value,
-          author: "64138c1113228c5d9bc119e8",
           recipient: e.target.recipient.value,
           description: e.target.description.value,
         }),
-      })
-      data = await response.json()
+      });
+      data = await response.json();
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
     if (!data.error) {
-      navigate('/challenges')
-      toast('Challenge Added!', { theme: 'colored', type: 'success' })
+      navigate('/challenges');
+      toast('Challenge Added!', { theme: 'colored', type: 'success' });
     } else {
-      toast(data.error, { theme: 'colored', type: 'error' })
+      toast(data.error, { theme: 'colored', type: 'error' });
     }
-  }
+  };
+  
   
   return (
     <div style={{backgroundColor: ""}}>

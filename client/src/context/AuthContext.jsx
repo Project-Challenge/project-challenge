@@ -8,14 +8,14 @@ export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
   const [tokens, setTokens] = useState(() =>
-    localStorage.getItem('accessToken')
-      ? JSON.parse(localStorage.getItem('accessToken'))
-      : JSON.parse(sessionStorage.getItem('accessToken')) 
+    localStorage.getItem('auth')
+      ? JSON.parse(localStorage.getItem('auth'))
+      : JSON.parse(sessionStorage.getItem('auth')) 
       || null
   )
   const [user, setUser] = useState(() =>
-    localStorage.getItem('accessToken')
-      ? jwt_decode(localStorage.getItem('accessToken'))
+    localStorage.getItem('auth')
+      ? jwt_decode(localStorage.getItem('auth'))
       : null
   )
   const [loading, setLoading] = useState(true)
@@ -76,12 +76,13 @@ const AuthProvider = ({ children }) => {
       console.error(error)
     }
     if (!data.error) {
-      setTokens(data)
-      setUser(jwt_decode(data.accessToken))
-      if (data.refreshToken) {
-        localStorage.setItem('accessToken', JSON.stringify(data)) 
+      const { id, username, ...slimData } = data; //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
+      setUser(jwt_decode(slimData.accessToken))
+      setTokens(slimData)
+      if (slimData.refreshToken) {
+        localStorage.setItem('auth', JSON.stringify(slimData)) 
       } else {
-        sessionStorage.setItem('accessToken', JSON.stringify(data))
+        sessionStorage.setItem('auth', JSON.stringify(slimData))
       }
       navigate('/challenges')
       toast('Logged in!', { theme: 'colored', type: 'success' })
@@ -92,8 +93,8 @@ const AuthProvider = ({ children }) => {
   const logoutUser = () => {
     setTokens(null)
     setUser(null)
-    localStorage.removeItem('accessToken')
-    sessionStorage.removeItem('accessToken')
+    localStorage.removeItem('auth')
+    sessionStorage.removeItem('auth')
     navigate('/login')
     toast('Logged out!', { theme: 'colored', type: 'success' })
   }
