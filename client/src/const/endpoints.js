@@ -8,6 +8,6 @@ export const ENDPOINTS = {
   users: '/api/users',
   createTask: '/api/tasks/create',
   pendingTask: '/api/tasks/pending',
-  finishTask: '/api/tasks/finished',
+  finishTask: '/api/tasks/finish',
   revertTask: '/api/tasks/revert',
 }

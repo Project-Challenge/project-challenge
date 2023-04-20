@@ -26,10 +26,10 @@ const useAxios = () => {
         refreshToken: tokens.refreshToken,
       }
     )
-    const { id, username, ...slimData } = response.data;
+    const { id, username, ...slimData } = response.data
     localStorage.setItem('auth', JSON.stringify(slimData))
-    setTokens(response.slimData)
-    req.headers.Authorization = `Bearer ${response.slimData.accessToken}`
+    setTokens(slimData)
+    req.headers.Authorization = slimData.accessToken
     return req
   })
 
