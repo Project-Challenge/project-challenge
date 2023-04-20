@@ -5,7 +5,7 @@ import { ENDPOINTS } from '../const/endpoints'
 import NavbarComponent from '../components/NavbarComponent'
 import { toast } from 'react-toastify'
 import "../../public/styles/Form.css"
-
+import useAxios from '../utils/useAxios'
 
 const AddChallenge = () => {
   
@@ -15,40 +15,30 @@ const AddChallenge = () => {
   const [recipient, setRecipient] = useState('')
   const [description, setDescription] = useState('')
   const [users, setUsers] = useState([])
+  const api = useAxios()
 
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
-        const accessToken = auth?.accessToken
-        const response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.users, {
-          method : 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': accessToken,
-          }
-        })
-        const data = await response.json()
-        setUsers(data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    getUsers()
-  }, [])
-
+  const getUsers = async () => {
+      const auth = JSON.parse(localStorage.getItem('auth')||sessionStorage.getItem("auth"))
+      console.log(auth.accessToken)
+      const response = await api.get(ENDPOINTS.users,{method:'GET',headers: {
+        'Content-Type': 'application/json',
+        'Authorization': auth.accessToken,
+      }})
+      setUsers(response.data)
+    
+  }
   const createTask = async (e) => {
     e.preventDefault();
     let response;
     let data;
     try {
       const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
-      const accessToken = auth?.accessToken
+
       response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.createTask, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': accessToken,
+          'Authorization': auth.accessToken,
         },
         body: JSON.stringify({
           title: e.target.title.value,
@@ -96,7 +86,7 @@ const AddChallenge = () => {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Recipient</Form.Label>
-                <Form.Select 
+                <Form.Select onClick={getUsers}
                   style={{border: "2px solid black"}} 
                   as='select'
                   className="loginControls" 
@@ -106,7 +96,7 @@ const AddChallenge = () => {
                   placeholder='Username...'
                 >
                   <option value="">--Select--</option>
-                  {users.map(user => (<option value={user._id} key={user._id}>{user.username}</option>))}
+                  {users && users.map(user => (<option value={user._id} key={user._id}>{user.username}</option>))}
 
                 </Form.Select>
               </Form.Group>

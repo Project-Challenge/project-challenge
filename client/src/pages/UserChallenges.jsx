@@ -8,7 +8,7 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
 
 const UserChallenges = () => {
-  const { logoutUser } = useContext(AuthContext)
+  const { logoutUser,userId } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
   const api = useAxios()
 
