@@ -10,7 +10,7 @@ router.post("/", authMiddleware, async (req, res) => {
     const result = await validateTask(req.body);
     if (result.error) {
       logger.info(result.error.details[0].message);
-      return res.status(403).send({ error: result.error.details[0].message });
+      return res.status(400).send({ error: result.error.details[0].message });
     }
     const newTask = new TaskModel({
       title: req.body.title,
@@ -22,10 +22,10 @@ router.post("/", authMiddleware, async (req, res) => {
     });
     await newTask.save();
     logger.info(`Task "${newTask._id}" created`);
-    res.status(201).json(newTask);
+    return res.status(201).json(newTask);
   } catch (error) {
     logger.error(error);
-    res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500).send({ error: "Internal Server Error" });
   }
 });
 

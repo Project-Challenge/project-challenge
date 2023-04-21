@@ -26,27 +26,25 @@ const AddChallenge = () => {
   }
   const createTask = async (e) => {
     e.preventDefault();
-    let response;
     try {
-      response = await api.post(ENDPOINTS.createTask, 
-        {
-          title: e.target.title.value,
-          recipient: e.target.recipient.value,
-          description: e.target.description.value,
-        })
-        console.log(response)
+      const response = await api.post(ENDPOINTS.createTask, {
+        title: e.target.title.value,
+        recipient: e.target.recipient.value,
+        description: e.target.description.value,
+      });
+      if (!response.error) {
+        navigate('/challenges');
+        toast('Challenge Added!', { theme: 'colored', type: 'success' });
+      }
     } catch (error) {
-      console.log(response)
       console.error(error);
-    }
-    if (!response.error) {
-      navigate('/challenges');
-      toast('Challenge Added!', { theme: 'colored', type: 'success' });
-    } else {
-      toast(response.error, { theme: 'colored', type: 'error' });
+      if (error.response && error.response.data && error.response.data.error) {
+        toast(error.response.data.error, { theme: 'colored', type: 'error' });
+      } else {
+        toast('An error occurred while adding the challenge', { theme: 'colored', type: 'error' });
+      }
     }
   };
-  
   
   return (
     <div style={{backgroundColor: ""}}>
