@@ -3,6 +3,7 @@ import { Form, Button, Container, Card } from 'react-bootstrap'
 import { ENDPOINTS } from '../const/endpoints'
 import { PATHS } from '../const/paths'
 import { AuthContext } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 import '../../public/styles/Form.css'
 const LogIn = () => {
   const [login, setLogin] = useState('')

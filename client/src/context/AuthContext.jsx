@@ -85,7 +85,7 @@ const AuthProvider = ({ children }) => {
       } else {
         sessionStorage.setItem('auth', JSON.stringify(slimData))
       }
-      navigate('/challenges')
+      navigate(PATHS.challenges)
       toast('Logged in!', { theme: 'colored', type: 'success' })
     } else {
       toast(data.error, { theme: 'colored', type: 'error' })
@@ -96,7 +96,7 @@ const AuthProvider = ({ children }) => {
     setUser(null)
     localStorage.removeItem('auth')
     sessionStorage.removeItem('auth')
-    navigate('/login')
+    navigate(PATHS.logScreen)
     toast('Logged out!', { theme: 'colored', type: 'success' })
   }
 
