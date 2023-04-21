@@ -8,49 +8,44 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
 
 const UserChallenges = () => {
-  const { logoutUser,userId } = useContext(AuthContext) 
+  const { logoutUser, userId } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
   const api = useAxios()
 
   useEffect(() => {
     getChallenges()
   }, [])
-  useEffect(() => {
-  }, [challenges])
   const getChallenges = async () => {
-    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
-    const accessToken = auth?.accessToken
-    const response = await api.get(ENDPOINTS.tasks, {
-      method : 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      }
-    })
-    if (response.status === 200) {
-      setChallenges(
-        response.data.sort((item1, item2) =>
-          item1.state < item2.state ? -1 : 1
+    try {
+      const response = await api.get(ENDPOINTS.tasks)
+      if (response.status === 200) {
+        setChallenges(
+          response.data.sort((item1, item2) =>
+            item1.state < item2.state ? -1 : 1
+          )
         )
-      )
-    } else
-      toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
+      } else
+        toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
+    } catch (error) {
+      console.error(error)
+      toast({ theme: 'colored', type: 'warning' })
+    }
   }
   const markAsCompleted = async (id) => {
-    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
-    const accessToken = auth?.accessToken
-    const response = await api.post(ENDPOINTS.pendingTask, { id }, {
-      method : 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      }
-    })
-    getChallenges()
+    try {
+      const response = await api.post(ENDPOINTS.pendingTask, { id })
+      getChallenges()
+    } catch (error) {
+      console.error(error)
+    }
   }
   const markAsFinished = async (id) => {
-    const response=await api.post(ENDPOINTS.finishTask,{id})
-    getChallenges()
+    try {
+      const response = await api.post(ENDPOINTS.finishTask, { id })
+      getChallenges()
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <>
