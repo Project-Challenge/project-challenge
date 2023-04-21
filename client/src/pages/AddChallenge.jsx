@@ -87,7 +87,7 @@ const AddChallenge = () => {
               <Form.Group>
                 <Form.Label>Recipient</Form.Label>
                 <Form.Select
-                  onClick={getUsers}
+                  onFocus={getUsers}
                   style={{ border: '2px solid black' }}
                   as='select'
                   className='loginControls'

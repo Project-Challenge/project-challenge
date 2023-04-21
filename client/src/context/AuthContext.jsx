@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { ENDPOINTS } from '../const/endpoints'
-import { PATHS } from '../const/endpoints/paths'
+import { PATHS } from '../const/paths'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
