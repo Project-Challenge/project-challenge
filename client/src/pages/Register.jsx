@@ -2,6 +2,8 @@ import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { AuthContext } from '../context/AuthContext'
 import '../../public/styles/Form.css'
+import { Link } from 'react-router-dom'
+import { PATHS } from '../const/paths'
 const Register = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -74,9 +76,7 @@ const Register = () => {
             </Form.Group>
             <p className='text-center' style={{ paddingTop: '1rem' }}>
               <i>Already have an account? </i>
-              <a href='/login' className='text-decoration-underline'>
-                Login
-              </a>
+              <Link to={PATHS.logScreen}>Log In</Link>
             </p>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>

@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { ENDPOINTS } from '../const/endpoints'
+import { PATHS } from '../const/paths'
 import { AuthContext } from '../context/AuthContext'
 import '../../public/styles/Form.css'
 const LogIn = () => {
@@ -70,9 +71,7 @@ const LogIn = () => {
             />
             <p className='text-center' style={{ paddingTop: '1rem' }}>
               <i>Don't have an account? </i>
-              <a href='/register' className='text-decoration-underline'>
-                Register
-              </a>
+              <Link to={PATHS.register}>Log In</Link>
             </p>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
