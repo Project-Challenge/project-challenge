@@ -8,24 +8,25 @@ import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
 
 const UserChallenges = () => {
-  const { logoutUser,userId } = useContext(AuthContext) 
+  const { logoutUser, userId } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
   const api = useAxios()
 
   useEffect(() => {
     getChallenges()
   }, [])
-  useEffect(() => {
-  }, [challenges])
+  useEffect(() => {}, [challenges])
   const getChallenges = async () => {
-    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+    const auth = JSON.parse(
+      localStorage.getItem('auth') || sessionStorage.getItem('auth')
+    )
     const accessToken = auth?.accessToken
     const response = await api.get(ENDPOINTS.tasks, {
-      method : 'GET',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      }
+        Authorization: accessToken,
+      },
     })
     if (response.status === 200) {
       setChallenges(
@@ -37,19 +38,23 @@ const UserChallenges = () => {
       toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
   }
   const markAsCompleted = async (id) => {
-    const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
+    const auth = JSON.parse(
+      localStorage.getItem('auth') || sessionStorage.getItem('auth')
+    )
     const accessToken = auth?.accessToken
-    const response = await api.post(ENDPOINTS.pendingTask, { id }, {
-      method : 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': accessToken,
-      }
-    })
+    const response = await api.post(ENDPOINTS.pendingTask, { id })
+    getChallenges()
+  }
+  const revertTask = async (id) => {
+    const auth = JSON.parse(
+      localStorage.getItem('auth') || sessionStorage.getItem('auth')
+    )
+
+    const response = await api.post(ENDPOINTS.finishTask, { id })
     getChallenges()
   }
   const markAsFinished = async (id) => {
-    const response=await api.post(ENDPOINTS.finishTask,{id})
+    const response = await api.post(ENDPOINTS.revertTask, { id })
     getChallenges()
   }
   return (
