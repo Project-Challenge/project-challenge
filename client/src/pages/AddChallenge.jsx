@@ -1,16 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ENDPOINTS } from '../const/endpoints'
 import NavbarComponent from '../components/NavbarComponent'
 import { toast } from 'react-toastify'
 import "../../public/styles/Form.css"
+import { AuthContext } from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
 
 const AddChallenge = () => {
   
   const navigate = useNavigate()
-  
+  const { logoutUser,userId } = useContext(AuthContext)
   const [title, setTitle] = useState('')
   const [recipient, setRecipient] = useState('')
   const [description, setDescription] = useState('')
@@ -19,49 +20,37 @@ const AddChallenge = () => {
 
   const getUsers = async () => {
       const auth = JSON.parse(localStorage.getItem('auth')||sessionStorage.getItem("auth"))
-      console.log(auth.accessToken)
-      const response = await api.get(ENDPOINTS.users,{method:'GET',headers: {
-        'Content-Type': 'application/json',
-        'Authorization': auth.accessToken,
-      }})
+      const response = await api.get(ENDPOINTS.users)
       setUsers(response.data)
     
   }
   const createTask = async (e) => {
     e.preventDefault();
     let response;
-    let data;
     try {
-      const auth = JSON.parse(localStorage.getItem('auth') || sessionStorage.getItem('auth'));
-
-      response = await fetch(ENDPOINTS.baseURL + ENDPOINTS.createTask, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': auth.accessToken,
-        },
-        body: JSON.stringify({
+      response = await api.post(ENDPOINTS.createTask, 
+        {
           title: e.target.title.value,
           recipient: e.target.recipient.value,
           description: e.target.description.value,
-        }),
-      });
-      data = await response.json();
+        })
+        console.log(response)
     } catch (error) {
+      console.log(response)
       console.error(error);
     }
-    if (!data.error) {
+    if (!response.error) {
       navigate('/challenges');
       toast('Challenge Added!', { theme: 'colored', type: 'success' });
     } else {
-      toast(data.error, { theme: 'colored', type: 'error' });
+      toast(response.error, { theme: 'colored', type: 'error' });
     }
   };
   
   
   return (
     <div style={{backgroundColor: ""}}>
-      <NavbarComponent />
+      <NavbarComponent logoutUser={logoutUser} />
       <Container
         style={{ height: '100vh'}}
         className='d-flex flex-column align-items-center justify-content-center'>

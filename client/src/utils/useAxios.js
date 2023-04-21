@@ -13,7 +13,8 @@ const useAxios = () => {
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
     headers: {
-      Authorization: tokens?.accessToken, //add content type here
+      'Content-Type': 'application/json',
+      Authorization: tokens?.accessToken,
     },
   })
   axiosInstance.interceptors.request.use(async (req) => {
