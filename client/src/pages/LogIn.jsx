@@ -1,31 +1,42 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { ENDPOINTS } from '../const/endpoints'
-
 import { AuthContext } from '../context/AuthContext'
-import "../../public/styles/Form.css"
+import '../../public/styles/Form.css'
 const LogIn = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const { loginUser } = useContext(AuthContext)
-  
+  //CHANGE A HREF TO A FUCKING NAVINK YOU STOOPID
   return (
-    <div style={{backgroundColor: ""}}>
+    <div style={{ backgroundColor: '' }}>
       <Container
-        style={{ height: '100vh'}}
+        style={{ height: '100vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>
-        <div className='d-flex flex-column align-items-center justify-content-center' style={{zIndex: "20", marginBottom: "-1.75rem", backgroundColor: "white", paddingLeft:"5px", paddingRight:"5px"}}>
-            <h1>Login</h1>
-          </div>
-        <Card style={{ width: '400px', padding: '20px', border: "3px solid black"}}>
-        
+        <div
+          className='d-flex flex-column align-items-center justify-content-center'
+          style={{
+            zIndex: '20',
+            marginBottom: '-1.75rem',
+            backgroundColor: 'white',
+            paddingLeft: '5px',
+            paddingRight: '5px',
+          }}>
+          <h1>Login</h1>
+        </div>
+        <Card
+          style={{
+            width: '400px',
+            padding: '20px',
+            border: '3px solid black',
+          }}>
           <Form onSubmit={loginUser}>
             <Form.Group>
               <Form.Label>Login</Form.Label>
               <Form.Control
-              style={{border: "2px solid black"}}
-                className="loginControls"
+                style={{ border: '2px solid black' }}
+                className='loginControls'
                 type='text'
                 value={login}
                 name='username'
@@ -35,11 +46,14 @@ const LogIn = () => {
             </Form.Group>
 
             <Form.Group>
-              <Form.Label style={{ paddingTop: '1rem', textDecorationThickness:"1rem" }}>Password</Form.Label>
+              <Form.Label
+                style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
+                Password
+              </Form.Label>
               <Form.Control
-              style={{border: "2px solid black"}}
+                style={{ border: '2px solid black' }}
                 type='password'
-                className="loginControls"
+                className='loginControls'
                 value={password}
                 name='password'
                 onChange={(e) => setPassword(e.target.value)}
@@ -47,29 +61,37 @@ const LogIn = () => {
               />
             </Form.Group>
             <Form.Check
-                style={{ paddingTop: '0.5rem'}}
-                type='switch'
-                name='remember'
-                value={remember}
-                label='Remember me'
-                onChange={(e) => setRemember(!remember)}
-              />
-            <p className="text-center"                 
-              style={{ paddingTop: '1rem'}}
-            >
-              <i>
-                Don't have an account?{" "}
-              </i>
-              <a href="/register" className="text-decoration-underline">
+              style={{ paddingTop: '0.5rem' }}
+              type='switch'
+              name='remember'
+              value={remember}
+              label='Remember me'
+              onChange={(e) => setRemember(!remember)}
+            />
+            <p className='text-center' style={{ paddingTop: '1rem' }}>
+              <i>Don't have an account? </i>
+              <a href='/register' className='text-decoration-underline'>
                 Register
               </a>
             </p>
-            <div className="d-flex flex-row gap-3 align-items-center justify-content-between">
+            <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
               <Button
                 variant='primary'
                 type='submit'
-                style={{ marginTop: '-1.5rem', zIndex: "20", marginBottom: "-4rem", backgroundColor:"white", border: "none", color: "black", paddingBottom:"0px", paddingLeft: "5px", paddingRight: "5px", marginLeft:"5px", marginRight:"5px", }}>
+                style={{
+                  marginTop: '-1.5rem',
+                  zIndex: '20',
+                  marginBottom: '-4rem',
+                  backgroundColor: 'white',
+                  border: 'none',
+                  color: 'black',
+                  paddingBottom: '0px',
+                  paddingLeft: '5px',
+                  paddingRight: '5px',
+                  marginLeft: '5px',
+                  marginRight: '5px',
+                }}>
                 <h5>Submit</h5>
               </Button>
             </div>

@@ -6,6 +6,8 @@ import { toast } from 'react-toastify'
 import ChallengeCard from '../components/ChallengeCard'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
+import '../../public/styles/UserChallenges.css'
+import { NavLink } from 'react-router-dom'
 
 const UserChallenges = () => {
   const { logoutUser, userId } = useContext(AuthContext)
@@ -47,24 +49,50 @@ const UserChallenges = () => {
       console.log(error)
     }
   }
+  const revertTask = async (id) => {
+    try {
+      const response = await api.post(ENDPOINTS.revertTask, { id })
+      getChallenges()
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} />
       <Container
-        style={{ padding: '0', overflowX: 'hidden', paddingTop: '1rem' }}>
-        <Row className='justify-content-center'>
-          {challenges &&
-            challenges.map((item, key) => (
+        className='customContainer'
+        style={{
+          justifyItems: 'center',
+          padding: '0',
+          overflowX: 'hidden',
+          paddingTop: '1rem',
+        }}>
+        {challenges ? (
+          <Row style={{ width: '100%' }}>
+            {challenges.map((item, key) => (
               <Col key={key} md={4}>
                 <ChallengeCard
                   key={key}
                   markAsCompleted={markAsCompleted}
                   markAsFinished={markAsFinished}
+                  revertTask={revertTask}
                   {...item}
                 />
               </Col>
             ))}
-        </Row>
+          </Row>
+        ) : (
+          <div className='textWithoutTasks'>
+            <h1>There are no tasks</h1>
+            <p>
+              But you can create one in{' '}
+              <NavLink className='sectionLink' to='/addChallenge'>
+                this sections
+              </NavLink>
+            </p>
+          </div>
+        )}
       </Container>
     </>
   )

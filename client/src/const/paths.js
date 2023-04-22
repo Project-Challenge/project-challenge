@@ -1,7 +1,6 @@
 export const PATHS = {
-  logScreen: '/',
-  search: '/search',
-  dashboard: '/dashboard',
-  history: '/history',
-  scanner: '/scanner',
+  logScreen: '/login',
+  register: '/register',
+  challenges: '/challenges',
+  addChalenge: '/addChallenge',
 }

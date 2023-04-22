@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { ENDPOINTS } from '../const/endpoints'
+import { PATHS } from '../const/endpoints/paths'
 import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -10,8 +11,7 @@ const AuthProvider = ({ children }) => {
   const [tokens, setTokens] = useState(() =>
     localStorage.getItem('auth')
       ? JSON.parse(localStorage.getItem('auth'))
-      : JSON.parse(sessionStorage.getItem('auth')) 
-      || null
+      : JSON.parse(sessionStorage.getItem('auth')) || null
   )
   const [user, setUser] = useState(() =>
     localStorage.getItem('auth')
@@ -19,14 +19,14 @@ const AuthProvider = ({ children }) => {
       : null
   )
   const [loading, setLoading] = useState(true)
-  const [userId,setUserId] = useState("")
+  const [userId, setUserId] = useState('')
   const navigate = useNavigate()
 
   const registerUser = async (e) => {
     e.preventDefault()
-    if (e.target.password.value != e.target.repeatPassword.value){
+    if (e.target.password.value != e.target.repeatPassword.value) {
       toast("Passwords don't match", { theme: 'colored', type: 'error' })
-    }else{
+    } else {
       let response
       let data
       try {
@@ -46,14 +46,14 @@ const AuthProvider = ({ children }) => {
         console.error(error)
       }
       if (!data.error) {
-        navigate('/login')
+        navigate(PATHS.logScreen)
         toast('Registered!', { theme: 'colored', type: 'success' })
       } else {
         toast(data.error, { theme: 'colored', type: 'error' })
       }
     }
   }
-  
+
   const loginUser = async (e) => {
     e.preventDefault()
     let response
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
         body: JSON.stringify({
           username: e.target.username.value,
           password: e.target.password.value,
-          remember: e.target.remember.value
+          remember: e.target.remember.value,
         }),
       })
       data = await response.json()
@@ -76,12 +76,12 @@ const AuthProvider = ({ children }) => {
       console.error(error)
     }
     if (!data.error) {
-      const { id, username, ...slimData } = data; //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
+      const { id, username, ...slimData } = data //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
       setUser(jwt_decode(slimData.accessToken))
       setTokens(slimData)
       setUserId(id)
       if (slimData.refreshToken) {
-        localStorage.setItem('auth', JSON.stringify(slimData)) 
+        localStorage.setItem('auth', JSON.stringify(slimData))
       } else {
         sessionStorage.setItem('auth', JSON.stringify(slimData))
       }
@@ -103,7 +103,7 @@ const AuthProvider = ({ children }) => {
   let contexData = {
     user: user,
     tokens: tokens,
-    userId:userId,
+    userId: userId,
     setTokens: setTokens,
     setUser: setUser,
     loginUser: loginUser,

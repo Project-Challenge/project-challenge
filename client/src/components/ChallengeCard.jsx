@@ -17,6 +17,7 @@ const ChallengeCard = ({
   updatedAt,
   markAsCompleted,
   markAsFinished,
+  revertTask,
 }) => {
   const { userId } = useContext(AuthContext)
   return (
@@ -28,7 +29,7 @@ const ChallengeCard = ({
 
         <div className='usersInfo'>
           <Card.Text>{author && author.username}</Card.Text>
-          <Card.Text className='description'>
+          <Card.Text className='verifier'>
             Verifier: {recipient && recipient.username}
           </Card.Text>
         </div>
@@ -42,7 +43,7 @@ const ChallengeCard = ({
         )}
         <Card.Text className='description'>{description}</Card.Text>
         {state === 0 && userId === author._id && (
-          <>
+          <div className='buttonBox'>
             <Button
               className='button'
               onClick={() => {
@@ -50,18 +51,39 @@ const ChallengeCard = ({
               }}>
               Mark as Completed
             </Button>
-          </>
+          </div>
         )}
         {state === 1 && userId === recipient._id && (
-          <Button
-            className='button'
-            onClick={() => {
-              markAsFinished(_id)
-            }}>
-            Confirm completion
-          </Button>
+          <div className='buttonBox'>
+            <Button
+              className='button'
+              onClick={() => {
+                markAsFinished(_id)
+              }}>
+              Confirm completion
+            </Button>
+            <Button
+              className='button'
+              onClick={() => {
+                revertTask(_id)
+              }}>
+              Revert
+            </Button>
+          </div>
         )}
-        {state === 2 && <>UKONCZON</>}
+        {state === 2 && (
+          <>
+            <div className='buttonBox'>
+              <Button
+                className='button'
+                onClick={() => {
+                  revertTask(_id)
+                }}>
+                Revert
+              </Button>
+            </div>
+          </>
+        )}
       </Card.Body>
     </Card>
   )

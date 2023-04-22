@@ -5,29 +5,30 @@ import AuthProvider from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
 import UserChallenges from './pages/UserChallenges'
 import AddChallenge from './pages/AddChallenge'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { PATHS } from './const/paths'
 function App() {
-  return (<>
-  <ToastContainer
-  hideProgressBar={true}
-  pauseOnHover={false}
-  autoClose={2000}
-  />
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path='/login' element={<LogIn />} />
-          <Route path='/register' element={<Register />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path='/challenges' element={<UserChallenges />} />
-            <Route path='/addChallenge' element={<AddChallenge />} />
-            <Route path='/contact' element={<>cont</>} />
-            <Route path='*' element={<>Error 404: Page not found</>} />
-          </Route>
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+  return (
+    <>
+      <ToastContainer
+        hideProgressBar={true}
+        pauseOnHover={false}
+        autoClose={2000}
+      />
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path={PATHS.logScreen} element={<LogIn />} />
+            <Route path={PATHS.register} element={<Register />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path={PATHS.challenges} element={<UserChallenges />} />
+              <Route path={PATHS.addChalenge} element={<AddChallenge />} />
+              <Route path='*' element={<>Error 404: Page not found</>} />
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
     </>
   )
 }

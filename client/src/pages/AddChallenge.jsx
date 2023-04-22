@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { ENDPOINTS } from '../const/endpoints'
+import { PATHS } from '../const/paths'
 import NavbarComponent from '../components/NavbarComponent'
 import { toast } from 'react-toastify'
 import '../../public/styles/Form.css'
@@ -30,7 +31,7 @@ const AddChallenge = () => {
         description: e.target.description.value,
       })
       if (!response.error) {
-        navigate('/challenges')
+        navigate(PATHS.challenges)
         toast('Challenge Added!', { theme: 'colored', type: 'success' })
       }
     } catch (error) {
@@ -50,7 +51,7 @@ const AddChallenge = () => {
     <div style={{ backgroundColor: '' }}>
       <NavbarComponent logoutUser={logoutUser} />
       <Container
-        style={{ height: '100vh' }}
+        style={{ height: '75vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>
         <div
           className='d-flex flex-column align-items-center justify-content-center'

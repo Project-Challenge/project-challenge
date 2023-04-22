@@ -1,0 +1,20 @@
+.customContainer{
+    justify-content: center !important;
+    display: flex !important;
+    margin-top: 5rem !important;
+}
+.textWithoutTasks{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #565656;
+}
+h1{color: black;}
+.sectionLink{
+    text-decoration-color: #565656;
+    color:#565656
+} 
+.sectionLink:hover{
+        color: #565656;
+}

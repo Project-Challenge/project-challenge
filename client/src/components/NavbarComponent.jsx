@@ -26,7 +26,7 @@ const NavbarComponent = ({ logoutUser }) => {
       <Navbar.Collapse className='justify-content-end'>
         <Nav style={{ marginRight: '1.5rem', paddingLeft: '1.5rem' }}>
           <NavLink className='navlink' to='/challenges'>
-            Home
+            My challenges
           </NavLink>
           <NavLink className='navlink' to='/addChallenge'>
             New challenge
