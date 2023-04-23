@@ -72,7 +72,7 @@ const LogIn = () => {
             />
             <p className='text-center' style={{ paddingTop: '1rem' }}>
               <i>Don't have an account? </i>
-              <Link to={PATHS.register}>Log In</Link>
+              <Link to={PATHS.register}>Register</Link>
             </p>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
