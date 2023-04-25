@@ -3,6 +3,7 @@ import { changeCardColor } from '../utils/changeCardColor'
 import '../../public/styles/ChallengeCard.css'
 import { useContext, useEffect } from 'react'
 import { AuthContext } from '../context/AuthContext'
+import moment from 'moment'
 
 const ChallengeCard = ({
   _id,
@@ -27,21 +28,23 @@ const ChallengeCard = ({
           {title}
         </Card.Text>
 
-        <div className='usersInfo'>
-          <Card.Text>{author && author.username}</Card.Text>
-          <Card.Text className='verifier'>
-            Verifier: {recipient && recipient.username}
-          </Card.Text>
-        </div>
-        <Card.Text>
-          Creation Date: {new Date(creationDate).toLocaleString()}
-        </Card.Text>
-        {pendingDate && (
-          <Card.Text>
-            Pending Date: {new Date(pendingDate).toLocaleString()}
-          </Card.Text>
-        )}
         <Card.Text className='description'>{description}</Card.Text>
+
+        <hr />
+        <div className='contents'>
+          <div className='usersInfo'>
+            <Card.Text>{author && author.username}</Card.Text>
+            <Card.Text className='verifier'>
+              Verifier: {recipient && recipient.username}
+            </Card.Text>
+          </div>
+          <div className='dates'>
+            <Card.Text>
+              {moment(creationDate).format('MMM Do YYYY')} -{' '}
+              {pendingDate ? moment(pendingDate).format('MMM Do YYYY') : '?'}
+            </Card.Text>
+          </div>
+        </div>
         {state === 0 && userId === author._id && (
           <div className='buttonBox'>
             <Button
