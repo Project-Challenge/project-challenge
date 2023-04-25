@@ -4,6 +4,8 @@
     border-radius: 10px !important;
     margin-bottom: 3rem !important;
     width: 95%;
+    min-height: 15rem;
+    max-height: 15rem;
 }
 .challengeCard:hover{
     height: fit-content !important;
@@ -35,7 +37,7 @@
     justify-content: space-between;
 }
 .description{
-    color: gray;
+    color: black;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -46,9 +48,17 @@
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     padding-left: 0.75rem;
+    font-size: 0.75rem !important;
 }
 .usersInfo{
+    color:gray;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-size: 0.75rem;
+
+}
+.date{
+    color:gray;
+    font-size: 0.75rem;
 }
