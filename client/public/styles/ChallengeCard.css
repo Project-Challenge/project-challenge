@@ -5,7 +5,6 @@
     margin-bottom: 3rem !important;
     width: 95%;
     min-height: 15rem;
-    max-height: 15rem;
 }
 .challengeCard:hover{
     height: fit-content !important;
@@ -29,21 +28,24 @@
     color: black !important;
     border: none !important;
     font-size: 1rem !important;
-    margin-bottom: -2rem;
-    font-weight: bold !important;
+    font-weight: bold !important;  
 }
 .buttonBox{
     display:flex;
     justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    transform: translate(0, 50%);
+    width: 90%
+    
 }
 .description{
-    color: black;
+    color: black !important;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
 }
 .verifier{
-    color: gray;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
@@ -51,7 +53,7 @@
     font-size: 0.75rem !important;
 }
 .usersInfo{
-    color:gray;
+    color: gray;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -61,4 +63,14 @@
 .date{
     color:gray;
     font-size: 0.75rem;
+}
+.dates{
+    color: gray;
+    display: flex;
+    justify-content: center;
+}
+.contents{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: stretch !important;
 }
