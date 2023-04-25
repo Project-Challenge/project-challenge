@@ -8,7 +8,7 @@ import { useContext } from 'react'
 // double refresh is needed after new the new token is generated
 
 const useAxios = () => {
-  const { tokens, setTokens, logoutUser } = useContext(AuthContext)
+  const { tokens, setTokens, setUserId, logoutUser } = useContext(AuthContext)
 
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
@@ -21,10 +21,13 @@ const useAxios = () => {
     const user = jwt_decode(tokens?.accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     let response
-    if (!isExpired) return req
     if (tokens.refreshToken) {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.refreshToken, {
         refreshToken: tokens.refreshToken,
+      })
+    } else if (!isExpired) {
+      response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.verifyToken, {
+        accessToken: tokens?.accessToken,
       })
     } else {
       logoutUser()
@@ -32,6 +35,7 @@ const useAxios = () => {
     const { id, username, ...slimData } = response.data
     localStorage.setItem('auth', JSON.stringify(slimData))
     setTokens(slimData)
+    setUserId(id)
     req.headers.Authorization = slimData.accessToken
     return req
   })
