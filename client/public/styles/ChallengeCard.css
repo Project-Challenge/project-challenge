@@ -22,9 +22,20 @@
     margin-top: -2.25rem !important; 
     padding-left: 5px;
     font-size: 1.5rem !important;
-    background-color: white !important;
     font-weight: bold !important;
     text-transform:uppercase;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.titleText{
+    background-color: white !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    White-Space: nowrap;
+    Overflow: hidden;
+    Text-overflow: ellipsis;
 }
 .button{
     background-color: white !important;
@@ -70,4 +81,13 @@
 .contents{
     bottom: 0;
     
+}
+.points{
+    font-size: 1rem;
+    padding-right: 5px;
+    color:brown;
+    background-color: white !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-top: -1rem;
 }
