@@ -16,7 +16,6 @@ router.post("/", authMiddleware, async (req, res) => {
       req.body.id,
       {
         state: 1,
-        finishedBy: "placeholder",
         pendingDate: new Date()
       },
       { new: true }

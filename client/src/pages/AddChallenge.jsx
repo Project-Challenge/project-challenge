@@ -13,8 +13,10 @@ const AddChallenge = () => {
   const navigate = useNavigate()
   const { logoutUser, userId } = useContext(AuthContext)
   const [title, setTitle] = useState('')
-  const [recipient, setRecipient] = useState('')
+  const [verifier, setVerifier] = useState('')
   const [description, setDescription] = useState('')
+  const [points, setPoints] = useState(5)
+  const [date, setDate] = useState('')
   const [users, setUsers] = useState([])
   const api = useAxios()
 
@@ -27,8 +29,9 @@ const AddChallenge = () => {
     try {
       const response = await api.post(ENDPOINTS.createTask, {
         title: e.target.title.value,
-        recipient: e.target.recipient.value,
+        verifier: e.target.verifier.value,
         description: e.target.description.value,
+        points: e.target.points.value,
       })
       if (!response.error) {
         navigate(PATHS.challenges)
@@ -85,15 +88,15 @@ const AddChallenge = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Recipient</Form.Label>
+                <Form.Label>Verifier</Form.Label>
                 <Form.Select
                   onFocus={getUsers}
                   style={{ border: '2px solid black' }}
                   as='select'
                   className='loginControls'
-                  value={recipient}
-                  name='recipient'
-                  onChange={(e) => setRecipient(e.target.value)}
+                  value={verifier}
+                  name='verifier'
+                  onChange={(e) => setVerifier(e.target.value)}
                   placeholder='Username...'>
                   <option value=''>--Select--</option>
                   {users &&
@@ -120,6 +123,34 @@ const AddChallenge = () => {
               rows={2}
               maxLength={120}
             />
+            <Form.Group>
+              <Form.Group>
+                <Form.Label>Points</Form.Label>
+                <Form.Select
+                  style={{ border: '2px solid black' }}
+                  as='select'
+                  className='loginControls'
+                  value={points}
+                  name='points'
+                  onChange={(e) => setPoints(e.target.value)}
+                  placeholder='Username...'>
+                  <option value='5'>5</option>
+                  <option value='10'>10</option>
+                  <option value='15'>15</option>
+                  <option value='20'>20</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Expiry Date</Form.Label>
+                <Form.Control 
+                  as='date'
+                  className='loginControls'
+                  value={date}
+                  name='date'
+                  onChange={(e) => setDate(e.target.value)}                
+                 />
+              </Form.Group>
+            </Form.Group>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
               <Button
