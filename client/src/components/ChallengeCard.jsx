@@ -30,9 +30,8 @@ const ChallengeCard = ({
         </Card.Text>
 
         <Card.Text className='description'>{description}</Card.Text>
-
-        <hr />
         <div className='contents'>
+          <hr />
           <div className='usersInfo'>
             <Card.Text>{author && author.username}</Card.Text>
             <Card.Text className='verifier'>
@@ -75,7 +74,7 @@ const ChallengeCard = ({
             </Button>
           </div>
         )}
-        {state === 2 && (
+        {state === 2 && (userId === author._id || userId === recipient._id) && (
           <>
             <div className='buttonBox'>
               <Button

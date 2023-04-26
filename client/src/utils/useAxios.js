@@ -33,8 +33,12 @@ const useAxios = () => {
       logoutUser()
     }
     const { id, username, ...slimData } = response.data
-    localStorage.setItem('auth', JSON.stringify(slimData))
-    setTokens(slimData)
+
+    if (slimData.accessToken) {
+      localStorage.setItem('auth', JSON.stringify(slimData))
+      setTokens(slimData)
+    }
+
     setUserId(id)
     req.headers.Authorization = slimData.accessToken
     return req

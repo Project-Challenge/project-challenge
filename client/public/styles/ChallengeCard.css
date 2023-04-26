@@ -4,7 +4,10 @@
     border-radius: 10px !important;
     margin-bottom: 3rem !important;
     width: 95%;
+    display: flex !important;
+    flex-direction: column !important;
     min-height: 15rem;
+    
 }
 .challengeCard:hover{
     height: fit-content !important;
@@ -36,14 +39,12 @@
     position: absolute;
     bottom: 0;
     transform: translate(0, 50%);
-    width: 90%
+    width: 90%;
     
 }
 .description{
     color: black !important;
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    min-height:6rem !important;
 }
 .verifier{
     white-space: nowrap;
@@ -57,20 +58,16 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 0.75rem;
+    font-size: 0.75rem !important;
 
-}
-.date{
-    color:gray;
-    font-size: 0.75rem;
 }
 .dates{
     color: gray;
     display: flex;
     justify-content: center;
+    font-size: 0.75rem;
 }
 .contents{
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: stretch !important;
+    bottom: 0;
+    
 }
