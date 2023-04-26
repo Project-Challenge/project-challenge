@@ -44,6 +44,11 @@ async function validateTask(task) {
       "any.required": "Verifier is required",
       "string.empty": "Verifier is required",
     }),
+    points: joi.string().required().messages({
+      "int.base": "Points must be an number",
+      "any.required": "Points are required",
+      "string.empty": "Points are required",
+    }),
     description: joi.string().max(120).messages({
       "string.base": "Description must be a string",
       "string.max": "Description cannot be more than 120 characters long",

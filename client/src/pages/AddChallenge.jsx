@@ -79,12 +79,13 @@ const AddChallenge = () => {
                 <Form.Label>Title</Form.Label>
                 <Form.Control
                   style={{ border: '2px solid black' }}
-                  className='loginControls'
+                  className='loginControls w-75'
                   type='text'
                   value={title}
                   name='title'
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder='Title...'
+                  maxLength={40}
                 />
               </Form.Group>
               <Form.Group>
@@ -93,7 +94,7 @@ const AddChallenge = () => {
                   onFocus={getUsers}
                   style={{ border: '2px solid black' }}
                   as='select'
-                  className='loginControls'
+                  className='loginControls w-25'
                   value={verifier}
                   name='verifier'
                   onChange={(e) => setVerifier(e.target.value)}
@@ -105,6 +106,36 @@ const AddChallenge = () => {
                         {user.username}
                       </option>
                     ))}
+                </Form.Select>
+              </Form.Group>
+            </Form.Group>
+            <Form.Group className='d-flex flex-row gap-3 align-items-center justify-content-between'
+              style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
+              <Form.Group>
+                <Form.Label>Expiry Date</Form.Label>
+                <Form.Control 
+                  style={{ border: '2px solid black' }}
+                  type='date'
+                  className='loginControls w-75'
+                  value={date}
+                  name='date'
+                  onChange={(e) => setDate(e.target.value)}                
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Points</Form.Label>
+                <Form.Select
+                  style={{ border: '2px solid black' }}
+                  as='select'
+                  className='loginControls w-25'
+                  value={points}
+                  name='points'
+                  onChange={(e) => setPoints(e.target.value)}
+                  placeholder='Username...'>
+                  <option value='5'>5</option>
+                  <option value='10'>10</option>
+                  <option value='15'>15</option>
+                  <option value='20'>20</option>
                 </Form.Select>
               </Form.Group>
             </Form.Group>
@@ -123,34 +154,6 @@ const AddChallenge = () => {
               rows={2}
               maxLength={120}
             />
-            <Form.Group>
-              <Form.Group>
-                <Form.Label>Points</Form.Label>
-                <Form.Select
-                  style={{ border: '2px solid black' }}
-                  as='select'
-                  className='loginControls'
-                  value={points}
-                  name='points'
-                  onChange={(e) => setPoints(e.target.value)}
-                  placeholder='Username...'>
-                  <option value='5'>5</option>
-                  <option value='10'>10</option>
-                  <option value='15'>15</option>
-                  <option value='20'>20</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Expiry Date</Form.Label>
-                <Form.Control 
-                  as='date'
-                  className='loginControls'
-                  value={date}
-                  name='date'
-                  onChange={(e) => setDate(e.target.value)}                
-                 />
-              </Form.Group>
-            </Form.Group>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
               <Button
