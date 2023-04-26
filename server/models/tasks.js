@@ -16,6 +16,11 @@ const TaskSchema = new mongoose.Schema({
     required: false,
     default: 0,
   },
+  points: {
+    type: Number,
+    required: false,
+    default: 10,
+  },
   creationDate: {
     type: Date,
     required: true,
@@ -33,19 +38,9 @@ const TaskSchema = new mongoose.Schema({
     required: true,
     ref: "users",
   },
-  recipient: {
+  verifier: {
     type: String,
     required: true,
-    ref: "users",
-  },
-  finishedBy: {
-    type: String,
-    required: false,
-    ref: "users",
-  },
-  verifiedBy: {
-    type: String,
-    required: false,
     ref: "users",
   },
 });

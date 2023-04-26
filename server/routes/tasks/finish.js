@@ -16,7 +16,6 @@ router.post("/", authMiddleware, async (req, res) => {
       req.body.id,
       {
         state: 2,
-        verifiedBy: req.user.id,
         finishedDate: new Date(),
       },
       { new: true }

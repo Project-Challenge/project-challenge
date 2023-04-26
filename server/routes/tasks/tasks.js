@@ -15,7 +15,7 @@ router.get("/", authMiddleware, async (req, res) => {
     const query = {
       ...(req.body.id && { _id: req.body.id }),
       ...(req.body.author && { _id: req.body.author }),
-      ...(req.body.recipient && { _id: req.body.recipient }),
+      ...(req.body.verifier && { _id: req.body.verifier }),
       ...(req.body.state && { state: req.body.state }),
       ...(req.body.like && {
         $or: [
@@ -26,7 +26,7 @@ router.get("/", authMiddleware, async (req, res) => {
     };
     const tasks = await TaskModel.find(query)
       .populate('author', 'username')
-      .populate('recipient', 'username');
+      .populate('verifier', 'username');
     if (!tasks || tasks.length === 0) {
       logger.debug("No tasks found");
       return res.status(404).send({ error: "No tasks found" });
@@ -44,7 +44,7 @@ async function validateTask(task) {
     id: joi.string(),
     state: joi.string().valid(0, 1, 2, 3),
     author: joi.string(),
-    recipient: joi.string(),
+    verifier: joi.string(),
     like: joi.string(),
     date: joi.date(),
   });

@@ -11,7 +11,7 @@ const ChallengeCard = ({
   description,
   state,
   author,
-  recipient,
+  verifier,
   creationDate,
   pendingDate,
   finishedBy,
@@ -35,7 +35,7 @@ const ChallengeCard = ({
           <div className='usersInfo'>
             <Card.Text>{author && author.username}</Card.Text>
             <Card.Text className='verifier'>
-              Verifier: {recipient && recipient.username}
+              Verifier: {verifier && verifier.username}
             </Card.Text>
           </div>
           <div className='dates'>
@@ -56,7 +56,7 @@ const ChallengeCard = ({
             </Button>
           </div>
         )}
-        {state === 1 && userId === recipient._id && (
+        {state === 1 && userId === verifier._id && (
           <div className='buttonBox'>
             <Button
               className='button'

@@ -15,9 +15,10 @@ router.post("/", authMiddleware, async (req, res) => {
     const newTask = new TaskModel({
       title: req.body.title,
       description: req.body.description,
+      points: req.body.points,
       creationDate: new Date(),
       author: req.user.id,
-      recipient: req.body.recipient,
+      verifier: req.body.verifier,
       state: 0,
     });
     await newTask.save();
@@ -38,10 +39,10 @@ async function validateTask(task) {
       "any.required": "Title is required",
       "string.empty": "Title is required",
     }), 
-    recipient: joi.string().required().messages({
-      "string.base": "Recipient must be a string",
-      "any.required": "Recipient is required",
-      "string.empty": "Recipient is required",
+    verifier: joi.string().required().messages({
+      "string.base": "Verifier must be a string",
+      "any.required": "Verifier is required",
+      "string.empty": "Verifier is required",
     }),
     description: joi.string().max(120).messages({
       "string.base": "Description must be a string",
