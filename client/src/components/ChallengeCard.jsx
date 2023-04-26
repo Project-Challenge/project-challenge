@@ -25,10 +25,14 @@ const ChallengeCard = ({
   return (
     <Card className='challengeCard'>
       <Card.Body>
-        <Card.Text className='title' style={{ color: changeCardColor(state) }}>
-          {title}
-        </Card.Text>
-
+        <div className='title'>
+          <Card.Text
+            className='titleText'
+            style={{ color: changeCardColor(state) }}>
+            {title}
+          </Card.Text>
+          <Card.Text className='points'>5</Card.Text>
+        </div>
         <Card.Text className='description'>{description}</Card.Text>
         <div className='contents'>
           <hr />
