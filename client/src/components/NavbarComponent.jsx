@@ -21,7 +21,7 @@ const NavbarComponent = ({ logoutUser }) => {
           paddingLeft: '5px',
           paddingRight: '5px',
         }}>
-        Challanges
+        Challenges
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className='justify-content-end'>
