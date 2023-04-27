@@ -17,6 +17,7 @@ router.post("/", authMiddleware, async (req, res) => {
       description: req.body.description,
       points: req.body.points,
       creationDate: new Date(),
+      deadlineDate: req.body.deadline,
       author: req.user.id,
       verifier: req.body.verifier,
       state: 0,
@@ -38,7 +39,7 @@ async function validateTask(task) {
       "string.max": "Title cannot be more than 40 characters long",
       "any.required": "Title is required",
       "string.empty": "Title is required",
-    }), 
+    }),
     verifier: joi.string().required().messages({
       "string.base": "Verifier must be a string",
       "any.required": "Verifier is required",
@@ -52,6 +53,11 @@ async function validateTask(task) {
     description: joi.string().max(120).messages({
       "string.base": "Description must be a string",
       "string.max": "Description cannot be more than 120 characters long",
+    }),
+    deadline: joi.string().required().messages({
+      "string.base": "Deadline must be a string",
+      "any.required": "Deadline is required",
+      "string.empty": "Deadline is required",
     }),
   });
   return schema.validate(task);

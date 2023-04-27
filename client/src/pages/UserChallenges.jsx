@@ -18,7 +18,7 @@ const UserChallenges = () => {
 
   useEffect(() => {
     getChallenges()
-    console.log(userId)
+    console.log(challenges)
   }, [])
   const getChallenges = async () => {
     try {

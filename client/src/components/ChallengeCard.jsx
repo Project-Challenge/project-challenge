@@ -19,6 +19,7 @@ const ChallengeCard = ({
   markAsCompleted,
   markAsFinished,
   revertTask,
+  points,
 }) => {
   const { userId } = useContext(AuthContext)
   useEffect(() => console.log(userId), [])
@@ -26,12 +27,13 @@ const ChallengeCard = ({
     <Card className='challengeCard'>
       <Card.Body>
         <div className='title'>
-          <Card.Text
-            className='titleText'
-            style={{ color: changeCardColor(state) }}>
+          <div className='titleText' style={{ color: changeCardColor(state) }}>
             {title}
-          </Card.Text>
-          <Card.Text className='points'>5</Card.Text>
+            <div>
+              <span className='tooltiptext'>{title}</span>
+            </div>
+          </div>
+          <Card.Text className='points'>{points}</Card.Text>
         </div>
         <Card.Text className='description'>{description}</Card.Text>
         <div className='contents'>
@@ -39,7 +41,7 @@ const ChallengeCard = ({
           <div className='usersInfo'>
             <Card.Text>{author && author.username}</Card.Text>
             <Card.Text className='verifier'>
-              Verifier: {verifier && verifier.username}
+              verifier: {verifier && verifier.username}
             </Card.Text>
           </div>
           <div className='dates'>
@@ -78,7 +80,7 @@ const ChallengeCard = ({
             </Button>
           </div>
         )}
-        {state === 2 && (userId === author._id || userId === recipient._id) && (
+        {state === 2 && (userId === author._id || userId === verifier._id) && (
           <>
             <div className='buttonBox'>
               <Button

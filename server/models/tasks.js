@@ -21,6 +21,10 @@ const TaskSchema = new mongoose.Schema({
     required: false,
     default: 10,
   },
+  deadlineDate: {
+    type: Date,
+    required: true,
+  },
   creationDate: {
     type: Date,
     required: true,

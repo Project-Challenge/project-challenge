@@ -1,5 +1,5 @@
 export const ENDPOINTS = {
-  baseURL: 'http://localhost:27018',
+  baseURL: 'http://localhost:3001',
   registerUser: '/api/auth/register',
   loginUser: '/api/auth/login',
   verifyToken: '/api/auth/verify',

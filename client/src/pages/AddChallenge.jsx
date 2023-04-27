@@ -16,7 +16,7 @@ const AddChallenge = () => {
   const [verifier, setVerifier] = useState('')
   const [description, setDescription] = useState('')
   const [points, setPoints] = useState(5)
-  const [date, setDate] = useState('')
+  const [deadline, setDeadline] = useState('')
   const [users, setUsers] = useState([])
   const api = useAxios()
 
@@ -32,6 +32,7 @@ const AddChallenge = () => {
         verifier: e.target.verifier.value,
         description: e.target.description.value,
         points: e.target.points.value,
+        deadline: e.target.deadline.value,
       })
       if (!response.error) {
         navigate(PATHS.challenges)
@@ -109,17 +110,18 @@ const AddChallenge = () => {
                 </Form.Select>
               </Form.Group>
             </Form.Group>
-            <Form.Group className='d-flex flex-row gap-3 align-items-center justify-content-between'
+            <Form.Group
+              className='d-flex flex-row gap-3 align-items-center justify-content-between'
               style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
               <Form.Group>
                 <Form.Label>Expiry Date</Form.Label>
-                <Form.Control 
+                <Form.Control
                   style={{ border: '2px solid black' }}
                   type='date'
                   className='loginControls w-75'
-                  value={date}
-                  name='date'
-                  onChange={(e) => setDate(e.target.value)}                
+                  value={deadline}
+                  name='deadline'
+                  onChange={(e) => setDeadline(e.target.value)}
                 />
               </Form.Group>
               <Form.Group>

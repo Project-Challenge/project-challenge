@@ -73,9 +73,10 @@ const AuthProvider = ({ children }) => {
       })
       data = await response.json()
     } catch (error) {
+      console.log(response)
       console.error(error)
     }
-    console.log(data)
+
     if (!data.error) {
       const { id, username, ...slimData } = data //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
       setUser(jwt_decode(slimData.accessToken))

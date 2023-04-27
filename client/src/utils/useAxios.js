@@ -35,7 +35,9 @@ const useAxios = () => {
     const { id, username, ...slimData } = response.data
 
     if (slimData.accessToken) {
-      localStorage.setItem('auth', JSON.stringify(slimData))
+      localStorage.getItem('auth')
+        ? localStorage.setItem('auth', JSON.stringify(slimData))
+        : sessionStorage.setItem('auth', JSON.stringify(slimData)) || null
       setTokens(slimData)
     }
 
