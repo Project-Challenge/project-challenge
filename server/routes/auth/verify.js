@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     const result = await validateToken(req.body);
     if (result.error) {
       logger.info(result.error.details[0].message);
-      return res.status(403).send({ error: "AAAAA" });
+      return res.status(403).send({ error: result.error.details[0].message });
     }
     const accessToken = req.body.accessToken;
     if (!accessToken) {
