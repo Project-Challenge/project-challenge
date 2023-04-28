@@ -11,7 +11,7 @@ import useAxios from '../utils/useAxios'
 
 const AddChallenge = () => {
   const navigate = useNavigate()
-  const { logoutUser, userId } = useContext(AuthContext)
+  const { logoutUser, userId, userPoints } = useContext(AuthContext)
   const [title, setTitle] = useState('')
   const [verifier, setVerifier] = useState('')
   const [description, setDescription] = useState('')
@@ -53,7 +53,7 @@ const AddChallenge = () => {
 
   return (
     <div style={{ backgroundColor: '' }}>
-      <NavbarComponent logoutUser={logoutUser} />
+      <NavbarComponent logoutUser={logoutUser}/>
       <Container
         style={{ height: '75vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>

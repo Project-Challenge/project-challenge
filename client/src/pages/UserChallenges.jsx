@@ -93,7 +93,7 @@ const UserChallenges = () => {
             <p>
               But you can create one in{' '}
               <NavLink className='sectionLink' to={PATHS.addChalenge}>
-                this sections
+                this section
               </NavLink>
             </p>
           </div>

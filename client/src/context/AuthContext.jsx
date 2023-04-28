@@ -8,18 +8,19 @@ import { toast } from 'react-toastify'
 export const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
-  const [tokens, setTokens] = useState(() =>
-    localStorage.getItem('auth')
-      ? JSON.parse(localStorage.getItem('auth'))
-      : JSON.parse(sessionStorage.getItem('auth')) || null
-  )
-  const [user, setUser] = useState(() =>
-    localStorage.getItem('auth')
-      ? jwt_decode(localStorage.getItem('auth'))
-      : jwt_decode(sessionStorage.getItem('auth')) || null
-  )
+  const [tokens, setTokens] = useState(() => {
+    const storedTokens = localStorage.getItem('auth') || sessionStorage.getItem('auth');
+    return storedTokens ? JSON.parse(storedTokens) : null;
+  });
+  
+  const [user, setUser] = useState(() => {
+    const storedTokens = localStorage.getItem('auth') || sessionStorage.getItem('auth');
+    return storedTokens ? jwt_decode(storedTokens) : null;
+  });
+  
   const [loading, setLoading] = useState(true)
   const [userId, setUserId] = useState()
+  const [userPoints, setUserPoints] = useState() // this doesnt work for some reason
   const navigate = useNavigate()
 
   const registerUser = async (e) => {
@@ -78,11 +79,10 @@ const AuthProvider = ({ children }) => {
     }
 
     if (!data.error) {
-      const { id, username, ...slimData } = data //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
+      const { id, username, points, ...slimData } = data
       setUser(jwt_decode(slimData.accessToken))
-      console.log(slimData)
       setTokens(slimData)
-      console.log(data)
+      setUserPoints(points) // this doesnt work for some reason
       setUserId(id)
       if (slimData.refreshToken) {
         localStorage.setItem('auth', JSON.stringify(slimData))
@@ -120,6 +120,7 @@ const AuthProvider = ({ children }) => {
     if (tokens) {
       setUser(jwt_decode(tokens.accessToken))
     }
+    console.log(userPoints)// this doesnt work for some reason
     setLoading(false)
   }, [tokens, loading])
 

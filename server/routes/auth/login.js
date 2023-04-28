@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
         refreshToken,
         id: user.id,
         username: user.username,
-        points: user.points
+        points: user.points // this doesnt work for some reason
       });
     } else {
       //session token
