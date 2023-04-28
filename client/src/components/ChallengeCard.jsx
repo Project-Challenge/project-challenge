@@ -74,7 +74,7 @@ const ChallengeCard = ({
             <Button
               className='button'
               onClick={() => {
-                revertTask(_id)
+                revertTask(_id, state)
               }}>
               Revert
             </Button>
@@ -86,7 +86,7 @@ const ChallengeCard = ({
               <Button
                 className='button'
                 onClick={() => {
-                  revertTask(_id)
+                  revertTask(_id, state)
                 }}>
                 Revert
               </Button>

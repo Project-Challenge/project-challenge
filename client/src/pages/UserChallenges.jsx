@@ -54,9 +54,9 @@ const UserChallenges = () => {
       toast(error, { type: 'warning', theme: 'warning' })
     }
   }
-  const revertTask = async (id) => {
+  const revertTask = async (id, state) => {
     try {
-      const response = await api.post(ENDPOINTS.revertTask, { id })
+      const response = await api.post(ENDPOINTS.revertTask, { id, state })
       getChallenges()
     } catch (error) {
       console.error(error)
