@@ -1,0 +1,28 @@
+.loginControls:focus{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .cardForm{
+    border: 3px solid black !important;
+    border-radius: 10px;
+    width: 40rem !important;
+    padding: 2rem;
+  }
+  .controlsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .form-select{
+     min-width: 15rem; 
+  }
+  .form-control{
+    min-width: 15rem;
+  }
+  .form-label{
+    margin-top: .5rem;
+  }
+  .buttonForm{
+    margin-top: 2rem;
+    margin-bottom: -3.25rem !important;
+  }

@@ -5,7 +5,7 @@ import { ENDPOINTS } from '../const/endpoints'
 import { PATHS } from '../const/paths'
 import NavbarComponent from '../components/NavbarComponent'
 import { toast } from 'react-toastify'
-import '../../public/styles/Form.css'
+import '../../public/styles/AddChallenge.css'
 import { AuthContext } from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
 
@@ -68,15 +68,10 @@ const AddChallenge = () => {
           }}>
           <h1>Add a Challenge</h1>
         </div>
-        <Card
-          style={{
-            width: '400px',
-            padding: '20px',
-            border: '3px solid black',
-          }}>
+        <div className='cardForm'>
           <Form onSubmit={createTask}>
-            <Form.Group className='d-flex flex-row gap-3 align-items-center justify-content-between'>
-              <Form.Group>
+            <div className='controlsContainer'>
+              <div>
                 <Form.Label>Title</Form.Label>
                 <Form.Control
                   style={{ border: '2px solid black' }}
@@ -88,32 +83,8 @@ const AddChallenge = () => {
                   placeholder='Title...'
                   maxLength={40}
                 />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Verifier</Form.Label>
-                <Form.Select
-                  onFocus={getUsers}
-                  style={{ border: '2px solid black' }}
-                  as='select'
-                  className='loginControls w-25'
-                  value={verifier}
-                  name='verifier'
-                  onChange={(e) => setVerifier(e.target.value)}
-                  placeholder='Username...'>
-                  <option value=''>--Select--</option>
-                  {users &&
-                    users.map((user) => (
-                      <option value={user._id} key={user._id}>
-                        {user.username}
-                      </option>
-                    ))}
-                </Form.Select>
-              </Form.Group>
-            </Form.Group>
-            <Form.Group
-              className='d-flex flex-row gap-3 align-items-center justify-content-between'
-              style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
-              <Form.Group>
+              </div>
+              <div>
                 <Form.Label>Expiry Date</Form.Label>
                 <Form.Control
                   style={{ border: '2px solid black' }}
@@ -123,8 +94,32 @@ const AddChallenge = () => {
                   name='deadline'
                   onChange={(e) => setDeadline(e.target.value)}
                 />
-              </Form.Group>
-              <Form.Group>
+              </div>
+            </div>
+            <div className='controlsContainer'>
+              <div>
+                <Form.Label>Verifier</Form.Label>
+                <Form.Select
+                  onFocus={getUsers}
+                  style={{ border: '2px solid black', width: '100rem' }}
+                  as='select'
+                  className='loginControls w-25'
+                  value={verifier}
+                  name='verifier'
+                  onChange={(e) => setVerifier(e.target.value)}
+                  placeholder='Username...'>
+                  <option value='' selected>
+                    --Select--
+                  </option>
+                  {users &&
+                    users.map((user) => (
+                      <option value={user._id} key={user._id}>
+                        {user.username}
+                      </option>
+                    ))}
+                </Form.Select>
+              </div>{' '}
+              <div>
                 <Form.Label>Points</Form.Label>
                 <Form.Select
                   style={{ border: '2px solid black' }}
@@ -134,13 +129,15 @@ const AddChallenge = () => {
                   name='points'
                   onChange={(e) => setPoints(e.target.value)}
                   placeholder='Username...'>
-                  <option value='5'>5</option>
+                  <option selected value='5'>
+                    5
+                  </option>
                   <option value='10'>10</option>
                   <option value='15'>15</option>
                   <option value='20'>20</option>
                 </Form.Select>
-              </Form.Group>
-            </Form.Group>
+              </div>
+            </div>
             <Form.Label
               style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
               Description
@@ -159,10 +156,10 @@ const AddChallenge = () => {
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
               <Button
+                className='buttonForm'
                 variant='primary'
                 type='submit'
                 style={{
-                  marginTop: '1rem',
                   zIndex: '2',
                   marginBottom: '-2.5rem',
                   backgroundColor: 'white',
@@ -178,7 +175,7 @@ const AddChallenge = () => {
               </Button>
             </div>
           </Form>
-        </Card>
+        </div>
       </Container>
     </div>
   )
