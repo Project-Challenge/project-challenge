@@ -22,7 +22,6 @@ const ChallengeCard = ({
   points,
 }) => {
   const { userId } = useContext(AuthContext)
-  useEffect(() => console.log(userId), [])
   return (
     <Card className='challengeCard'>
       <Card.Body>

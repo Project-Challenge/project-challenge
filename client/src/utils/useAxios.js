@@ -9,7 +9,6 @@ import { useContext } from 'react'
 
 const useAxios = () => {
   const { tokens, setTokens, setUserId, logoutUser } = useContext(AuthContext)
-  console.log(tokens)
   const user = jwt_decode(tokens.accessToken)
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
@@ -23,7 +22,7 @@ const useAxios = () => {
     let response
     if (tokens.refreshToken) {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.refreshToken, {
-        refreshToken: tokens.refreshToken,
+        body: { refreshToken: tokens.refreshToken },
       })
     } else if (!isExpired) {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.verifyToken, {
@@ -33,16 +32,16 @@ const useAxios = () => {
       logoutUser()
     }
     const { id, username, ...slimData } = response.data
-
+    console.log(response)
     if (slimData.accessToken) {
       localStorage.getItem('auth')
         ? localStorage.setItem('auth', JSON.stringify(slimData))
         : sessionStorage.setItem('auth', JSON.stringify(slimData)) || null
       setTokens(slimData)
+      req.headers.Authorization = slimData.accessToken
     }
-
     setUserId(id)
-    req.headers.Authorization = slimData.accessToken
+
     return req
   })
 
