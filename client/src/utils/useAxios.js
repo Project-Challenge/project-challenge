@@ -9,7 +9,8 @@ import { useContext } from 'react'
 
 const useAxios = () => {
   const { tokens, setTokens, setUserId, logoutUser } = useContext(AuthContext)
-
+  console.log(tokens)
+  const user = jwt_decode(tokens.accessToken)
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
     headers: {
