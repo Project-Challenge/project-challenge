@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <>
       Error 404: Not Found, get back to{' '}
-      <Link to={PATHS.challenges}>your challanges</Link>
+      <Link to={PATHS.challenges}>your challenges</Link>
     </>
   )
 }
