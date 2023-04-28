@@ -18,7 +18,6 @@ const useAxios = () => {
     },
   })
   axiosInstance.interceptors.request.use(async (req) => {
-    const user = jwt_decode(tokens?.accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     let response
     if (tokens.refreshToken) {
@@ -27,7 +26,7 @@ const useAxios = () => {
       })
     } else if (!isExpired) {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.verifyToken, {
-        accessToken: tokens?.accessToken,
+        accessToken: tokens.accessToken,
       })
     } else {
       logoutUser()

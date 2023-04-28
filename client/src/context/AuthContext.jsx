@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() =>
     localStorage.getItem('auth')
       ? jwt_decode(localStorage.getItem('auth'))
-      : null
+      : jwt_decode(sessionStorage.getItem('auth')) || null
   )
   const [loading, setLoading] = useState(true)
   const [userId, setUserId] = useState()
@@ -80,6 +80,7 @@ const AuthProvider = ({ children }) => {
     if (!data.error) {
       const { id, username, ...slimData } = data //"slimData" doesn't include id or username, you can still get it from "data" but it wont save in storage
       setUser(jwt_decode(slimData.accessToken))
+      console.log(slimData)
       setTokens(slimData)
       console.log(data)
       setUserId(id)
