@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   
   const [loading, setLoading] = useState(true)
   const [userId, setUserId] = useState()
-  const [userPoints, setUserPoints] = useState() // this doesnt work for some reason
+  const [userPoints, setUserPoints] = useState(0)
   const navigate = useNavigate()
 
   const registerUser = async (e) => {
@@ -108,7 +108,9 @@ const AuthProvider = ({ children }) => {
     user: user,
     tokens: tokens,
     userId: userId,
+    userPoints: userPoints,
     setUserId: setUserId,
+    setUserPoints: setUserPoints,
     setTokens: setTokens,
     setUser: setUser,
     loginUser: loginUser,
@@ -120,7 +122,6 @@ const AuthProvider = ({ children }) => {
     if (tokens) {
       setUser(jwt_decode(tokens.accessToken))
     }
-    console.log(userPoints)// this doesnt work for some reason
     setLoading(false)
   }, [tokens, loading])
 

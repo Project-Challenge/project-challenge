@@ -12,7 +12,7 @@ import { PATHS } from '../const/paths'
 
 //Need to add scaling of buttons to small display phones
 const UserChallenges = () => {
-  const { logoutUser, userId } = useContext(AuthContext)
+  const { logoutUser, userId, userPoints } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
   const api = useAxios()
 
@@ -64,7 +64,7 @@ const UserChallenges = () => {
   }
   return (
     <>
-      <NavbarComponent logoutUser={logoutUser} />
+      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints}/>
       <Container
         className='customContainer'
         style={{

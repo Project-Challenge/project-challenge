@@ -18,7 +18,6 @@ const useAxios = () => {
   axiosInstance.interceptors.request.use(async (req) => {
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     let response
-    let users
     if (tokens.refreshToken) {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.refreshToken, {
         refreshToken: tokens.refreshToken
@@ -27,25 +26,28 @@ const useAxios = () => {
       response = await axios.post(ENDPOINTS.baseURL + ENDPOINTS.verifyToken, {
         accessToken: tokens.accessToken,
       })
-      users = await axios.get(ENDPOINTS.baseURL + ENDPOINTS.users, {
-        headers: {
-          Authorization: tokens?.accessToken,
-        },
-        data: {
-          id: response.data.id,
-        },
-      });
-        
     } else {
       logoutUser()
     }
     const { id, username, ...slimData } = response.data
+    axios.get(ENDPOINTS.baseURL + ENDPOINTS.points, {
+      headers: {
+        Authorization: tokens.accessToken
+      }
+    })
+    .then(response => {
+      console.log("response points: ",response.data.points);
+      setUserPoints(response.data.points);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    
     if (slimData.accessToken) {
       localStorage.getItem('auth')
         ? localStorage.setItem('auth', JSON.stringify(slimData))
         : sessionStorage.setItem('auth', JSON.stringify(slimData)) || null
       setTokens(slimData)
-      setUserPoints(users.data.points) // this doesnt work for some reason
       req.headers.Authorization = slimData.accessToken
     }
     setUserId(id)

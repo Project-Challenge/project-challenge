@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import '../../public/styles/Navbar.css'
 import { PATHS } from '../const/paths'
 
-const NavbarComponent = ({ logoutUser }) => {
+const NavbarComponent = ({ logoutUser, userPoints }) => {
   return (
     <Navbar expand='lg' className='my-navbar'>
       <img
@@ -27,7 +27,7 @@ const NavbarComponent = ({ logoutUser }) => {
       <Navbar.Collapse className='justify-content-end'>
         <Nav style={{ marginRight: '1.5rem', paddingLeft: '1.5rem' }}>
           <NavLink className='navlink' to={PATHS.challenges}>
-            My challenges
+            My challenges {userPoints}
           </NavLink>
           <NavLink className='navlink' to={PATHS.addChalenge}>
             New challenge

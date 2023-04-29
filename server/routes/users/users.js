@@ -12,6 +12,7 @@ router.get("/", authMiddleware, async (req, res) => {
       logger.info(result.error.details[0].message);
       return res.status(403).send({ error: result.error.details[0].message });
     }
+    logger.error(req.body.id);
     const query = {
       ...(req.body.id && { _id: req.body.id }),
       ...(req.body.username && { username: req.body.username }),

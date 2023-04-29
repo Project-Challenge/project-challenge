@@ -6,6 +6,7 @@ export const ENDPOINTS = {
   refreshToken: '/api/auth/refresh',
   tasks: '/api/tasks',
   users: '/api/users',
+  points: '/api/users/points',
   createTask: '/api/tasks/create',
   pendingTask: '/api/tasks/pending',
   finishTask: '/api/tasks/finish',

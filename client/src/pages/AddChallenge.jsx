@@ -53,7 +53,7 @@ const AddChallenge = () => {
 
   return (
     <div style={{ backgroundColor: '' }}>
-      <NavbarComponent logoutUser={logoutUser}/>
+      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints}/>
       <Container
         style={{ height: '75vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>

@@ -29,6 +29,7 @@ app.use("/api/auth/verify", require("./routes/auth/verify"));
 app.use("/api/auth/refresh", require("./routes/auth/refresh"));
 
 app.use("/api/users", require("./routes/users/users"));
+app.use("/api/users/points", require("./routes/users/points"));
 
 app.use("/api/tasks/create", require("./routes/tasks/create"));
 app.use("/api/tasks/pending", require("./routes/tasks/pending"));
