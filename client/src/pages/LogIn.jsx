@@ -9,8 +9,7 @@ const LogIn = () => {
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const { loginUser } = useContext(AuthContext)
-  // CHANGE A HREF TO A FUCKING NAVINK YOU STOOPID
-  // NO BITCH
+  
   return (
     <div style={{ backgroundColor: '' }}>
       <Container

@@ -4,36 +4,53 @@ import useAxios from '../utils/useAxios'
 import { ENDPOINTS } from '../const/endpoints'
 import { toast } from 'react-toastify'
 import ChallengeCard from '../components/ChallengeCard'
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import NavbarComponent from '../components/NavbarComponent'
 import '../../public/styles/UserChallenges.css'
 import { NavLink } from 'react-router-dom'
 import { PATHS } from '../const/paths'
+import { isCancel } from 'axios'
 
-//Need to add scaling of buttons to small display phones
+// Need to add scaling of buttons to small display phones
+// ^ Low priority - as in wont be doing that
 const UserChallenges = () => {
   const { logoutUser, userId, userPoints } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
+  const [isVerify, setIsVerify] = useState(false);
+  const [state, setState] = useState(-1);  
+  
+  const handleRadioChange = (event) => {
+    setIsVerify(event.target.value === 'true');
+  }
+  
+  const handleSelectChange = (event) => {
+    setState(event.target.value);
+  }
+  
   const api = useAxios()
-
-  useEffect(() => {
+    useEffect(() => {
+      console.log(isVerify)
     getChallenges()
-  }, [])
+  }, [isVerify, state])
   const getChallenges = async () => {
+    let response
     try {
-      const response = await api.get(ENDPOINTS.tasks)
+      response = await api.post(ENDPOINTS.tasks, {
+        isVerify: isVerify,
+        state: state
+      })
       if (response.status === 200) {
         setChallenges(
           response.data.sort((item1, item2) =>
             item1.state < item2.state ? -1 : 1
           )
         )
-      } else
-        toast('Something went wrong D:', { theme: 'colored', type: 'warning' })
+      }
     } catch (error) {
       console.error(error)
-      toast({ theme: 'colored', type: 'warning' })
+      toast('Shit went down', { theme: 'colored', type: 'warning' })
     }
+    console.log(response)
   }
   const markAsCompleted = async (id) => {
     try {
@@ -61,46 +78,69 @@ const UserChallenges = () => {
       console.error(error)
       toast(error, { type: 'warning', theme: 'warning' })
     }
+      
   }
   return (
     <>
-      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints}/>
+      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints} />
       <Container
-        className='customContainer'
+        className="customContainer"
         style={{
-          justifyItems: 'center',
-          padding: '0',
-          overflowX: 'hidden',
-          paddingTop: '1rem',
-        }}>
-        {challenges ? (
-          <Row style={{ width: '100%' }}>
-            {challenges.map((item, key) => (
-              <Col key={key} md={4}>
-                <ChallengeCard
-                  key={key}
-                  markAsCompleted={markAsCompleted}
-                  markAsFinished={markAsFinished}
-                  revertTask={revertTask}
-                  {...item}
-                />
-              </Col>
-            ))}
-          </Row>
-        ) : (
-          <div className='textWithoutTasks'>
-            <h1>There are no tasks</h1>
-            <p>
-              But you can create one in{' '}
-              <NavLink className='sectionLink' to={PATHS.addChalenge}>
-                this section
-              </NavLink>
-            </p>
-          </div>
-        )}
+          justifyItems: "center",
+          padding: "0",
+          overflowX: "hidden",
+          paddingTop: "1rem",
+        }}
+      >
+        <Row style={{ width: "100%" }}>
+          <Form style={{ paddingBottom: "20px" }}>
+            <Form.Check
+              type="switch"
+              label="To Verify"
+              name="verifyRadio"
+              id="verifyYes"
+              value={!isVerify}
+              checked={isVerify}
+              onChange={handleRadioChange}
+            />
+            <Form.Group controlId="exampleForm.ControlSelect1">
+              <Form.Label>Select a status</Form.Label>
+              <Form.Control as="select" onChange={handleSelectChange}>
+                <option value="-1">All</option>
+                <option value="0">New</option>
+                <option value="1">Pending</option>
+                <option value="2">Finished</option>
+              </Form.Control>
+            </Form.Group>
+          </Form>
+          {challenges ? (
+            challenges
+                .map((item, key) => (
+                <Col key={key} md={4}>
+                  <ChallengeCard
+                    key={key}
+                    markAsCompleted={markAsCompleted}
+                    markAsFinished={markAsFinished}
+                    revertTask={revertTask}
+                    {...item}
+                  />
+                </Col>
+              ))
+          ) : (
+            <div className="textWithoutTasks">
+              <h1>There are no tasks</h1>
+              <p>
+                But you can create one in{" "}
+                <NavLink className="sectionLink" to={PATHS.addChalenge}>
+                  this section
+                </NavLink>
+              </p>
+            </div>
+          )}
+        </Row>
       </Container>
     </>
-  )
+  );  
 }
 
 export default UserChallenges
