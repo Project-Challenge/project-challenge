@@ -53,7 +53,7 @@ const AddChallenge = () => {
 
   return (
     <div style={{ backgroundColor: '' }}>
-      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints}/>
+      <NavbarComponent logoutUser={logoutUser} userPoints={userPoints} />
       <Container
         style={{ height: '75vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>
@@ -108,9 +108,7 @@ const AddChallenge = () => {
                   name='verifier'
                   onChange={(e) => setVerifier(e.target.value)}
                   placeholder='Username...'>
-                  <option value='' selected>
-                    --Select--
-                  </option>
+                  <option value=''>--Select--</option>
                   {users &&
                     users.map((user) => (
                       <option value={user._id} key={user._id}>
@@ -128,10 +126,9 @@ const AddChallenge = () => {
                   value={points}
                   name='points'
                   onChange={(e) => setPoints(e.target.value)}
-                  placeholder='Username...'>
-                  <option selected value='5'>
-                    5
-                  </option>
+                  placeholder='Username...'
+                  >
+                  <option value='5'>5</option>
                   <option value='10'>10</option>
                   <option value='15'>15</option>
                   <option value='20'>20</option>
