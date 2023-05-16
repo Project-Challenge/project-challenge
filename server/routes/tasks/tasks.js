@@ -39,7 +39,7 @@ router.post("/", authMiddleware, async (req, res) => {
        .populate('verifier', 'username');
     if (!tasks || tasks.length === 0) {
       logger.debug("No tasks found");
-      return res.status(404).send({ error: "No tasks found" });
+      return res.status(204).send({ error: "No tasks found" });
     }
     logger.debug(`Task/s displayed`);
     res.send(tasks);
@@ -55,7 +55,7 @@ async function validateTask(task) {
     state: joi.number(),
     author: joi.string(),
     verifier: joi.string(),
-    like: joi.string(),
+    like: joi.string().allow(''),
     date: joi.date(),
     isVerify: joi.boolean(),
   });

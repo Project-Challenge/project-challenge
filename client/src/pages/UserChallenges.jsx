@@ -18,6 +18,8 @@ const UserChallenges = () => {
   const [challenges, setChallenges] = useState()
   const [isVerify, setIsVerify] = useState(false);
   const [state, setState] = useState(-1);  
+  const [searchTerm, setSearchTerm] = useState('');
+
   
   const handleRadioChange = (event) => {
     setIsVerify(event.target.value === 'true');
@@ -27,17 +29,26 @@ const UserChallenges = () => {
     setState(event.target.value);
   }
   
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    };
+  
   const api = useAxios()
     useEffect(() => {
       console.log(isVerify)
     getChallenges()
   }, [isVerify, state])
+  useEffect(()=>{
+    const timer = setTimeout(()=>getChallenges(),300)
+    return () => clearTimeout(timer)
+  },[searchTerm])
   const getChallenges = async () => {
     let response
     try {
       response = await api.post(ENDPOINTS.tasks, {
         isVerify: isVerify,
-        state: state
+        state: state,
+        like: searchTerm
       })
       if (response.status === 200) {
         setChallenges(
@@ -45,6 +56,9 @@ const UserChallenges = () => {
             item1.state < item2.state ? -1 : 1
           )
         )
+      }
+      else if(response.status === 204){
+        setChallenges(null)
       }
     } catch (error) {
       console.error(error)
@@ -112,6 +126,13 @@ const UserChallenges = () => {
                 <option value="2">Finished</option>
               </Form.Control>
             </Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Search"
+              className="mr-sm-2"
+              value={searchTerm}
+              onChange={handleSearch}
+              />
           </Form>
           {challenges ? (
             challenges
