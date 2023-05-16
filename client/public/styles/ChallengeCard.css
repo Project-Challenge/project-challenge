@@ -1,26 +1,112 @@
-.cardHeader{
-    color: rgba(255, 255, 255, 0.9) !important;
-    border-bottom: 3px solid black !important;
-}
-.card{
+.challengeCard{
     border-width: 3px !important;
     border-color: black !important;
     border-radius: 10px !important;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem !important;
+    width: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 15rem;
+    
+}
+.challengeCard:hover{
+    height: fit-content !important;
+}
+.challengeCard:hover .description{
+    white-space: wrap;
+    overflow: visible;
+    white-space: normal;
+    z-index: 20;
 }
 .title{
     margin-top: -2.25rem !important; 
     padding-left: 5px;
     font-size: 1.5rem !important;
-    background-color: white !important;
     font-weight: bold !important;
     text-transform:uppercase;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.titleText{
+    background-color: white !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    White-Space: nowrap;
+    Overflow: hidden;
+    Text-overflow: ellipsis;
 }
 .button{
     background-color: white !important;
     color: black !important;
     border: none !important;
     font-size: 1rem !important;
-    margin-bottom: -3rem;
-    font-weight: bold !important;
+    font-weight: bold !important;  
+}
+.buttonBox{
+    display:flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    transform: translate(0, 50%);
+    width: 90%;
+    
+}
+.description{
+    color: black !important;
+    min-height:6rem !important;
+}
+.verifier{
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    padding-left: 0.75rem;
+    font-size: 0.75rem !important;
+}
+.usersInfo{
+    color: gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.75rem !important;
+
+}
+.dates{
+    color: gray;
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+}
+.contents{
+    bottom: 0;
+    
+}
+.points{
+    font-size: 1rem;
+    padding-right: 5px;
+    color: #5cb85c;
+    background-color: white !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: 0px 2px 4px gray;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  color:black;
+  font-size: .8rem;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.titleText:hover .tooltiptext {
+  visibility: visible;
 }

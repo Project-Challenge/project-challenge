@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
     const result = await validateUser(req.body);
     if (result.error) {
       logger.info(result.error.details[0].message);
-      return res.status(403).send({ error: result.error.details[0].message });
+      return res.status(400).send({ error: result.error.details[0].message });
     }
 
     const { username, password, remember } = req.body;
@@ -50,6 +50,7 @@ router.post("/", async (req, res) => {
         refreshToken,
         id: user.id,
         username: user.username,
+        points: user.points // this doesnt work for some reason
       });
     } else {
       //session token

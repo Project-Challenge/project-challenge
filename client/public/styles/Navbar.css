@@ -3,4 +3,13 @@
     color: black !important;
     margin-bottom: 1rem;
   }
-
+.navlink{
+  text-decoration: none;
+  color: #565e64;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.5rem;
+}
+.navlink:hover{
+  color:#565e64;
+}

@@ -2,12 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const logger = require("./utils/logger");
 const cors = require("cors");
-
 require("dotenv").config();
-
 const app = express();
 
-// Connect to database
+// Connect to the database
 mongoose
   .connect(process.env.DB_URI, {
     useNewUrlParser: true,
@@ -18,7 +16,6 @@ mongoose
   })
   .catch((error) => {
     logger.error(error);
-    console.log(error);
   });
 
 // Middleware
@@ -30,6 +27,10 @@ app.use("/api/auth/register", require("./routes/auth/register"));
 app.use("/api/auth/login", require("./routes/auth/login"));
 app.use("/api/auth/verify", require("./routes/auth/verify"));
 app.use("/api/auth/refresh", require("./routes/auth/refresh"));
+
+app.use("/api/users", require("./routes/users/users"));
+app.use("/api/users/points", require("./routes/users/points"));
+
 app.use("/api/tasks/create", require("./routes/tasks/create"));
 app.use("/api/tasks/pending", require("./routes/tasks/pending"));
 app.use("/api/tasks/finish", require("./routes/tasks/finish"));

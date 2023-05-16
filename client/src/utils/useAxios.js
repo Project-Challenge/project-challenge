@@ -14,11 +14,10 @@ const useAxios = () => {
       Authorization: `Bearer ${tokens?.accessToken}`,
     },
   })
-  // need to handle session
   axiosInstance.interceptors.request.use(async (req) => {
-    const user = jwt_decode(tokens.accessToken)
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1
     if (!isExpired) return req
+<<<<<<<<< Temporary merge branch 1
     const response = await axios.post(
       ENDPOINTS.baseURL + ENDPOINTS.refreshToken,
       {
@@ -28,6 +27,21 @@ const useAxios = () => {
     localStorage.setItem('accessToken', JSON.stringify(response.data))
     setTokens(response.data)
     req.headers.Authorization = `Bearer ${response.data.accessToken}`
+=========
+    if (tokens.refreshToken){
+      const response = await axios.post(
+        ENDPOINTS.baseURL + ENDPOINTS.authTokensRefreshPath,
+        {
+         refreshToken: tokens.refreshToken,
+        }
+      )
+      localStorage.setItem('accessToken', JSON.stringify(response.data))
+      setTokens(response.data)
+      req.headers.Authorization = `Bearer ${response.data.accessToken}`
+    } else {
+      req.headers.Authorization = `Bearer ${response.data.accessToken}`
+    }
+>>>>>>>>> Temporary merge branch 2
     return req
   })
 

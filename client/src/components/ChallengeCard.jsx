@@ -1,46 +1,95 @@
 import { Card, Button } from 'react-bootstrap'
 import { changeCardColor } from '../utils/changeCardColor'
 import '../../public/styles/ChallengeCard.css'
-import useAxios from '../utils/useAxios'
+import { useContext, useEffect } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import moment from 'moment'
 
-const markAsCompleted = async (id) =>{
-  const api = useAxios()
-  const response = await api.post(()=>{})
-}
 const ChallengeCard = ({
   _id,
   title,
   description,
   state,
-  createdBy,
+  author,
+  verifier,
   creationDate,
   pendingDate,
   finishedBy,
   updatedAt,
-})=> {
+  markAsCompleted,
+  markAsFinished,
+  revertTask,
+  points,
+}) => {
+  const { userId } = useContext(AuthContext)
   return (
-    <Card>
+    <Card className='challengeCard'>
       <Card.Body>
-        <Card.Text className='title' style={{ color: changeCardColor(state) }}>
-          {title}
-        </Card.Text>
-        <Card.Text>{createdBy.username}</Card.Text>
-        <Card.Text>
-          Creation Date: {new Date(creationDate).toLocaleString()}
-        </Card.Text>
-        {pendingDate && (<Card.Text>
-              Pending Date: {new Date(pendingDate).toLocaleString()}
-            </Card.Text>)}
-        <Card.Text style={{color: "gray"}}>{description}</Card.Text>
-        {state === 0 && (
-          <>
-            
-            <Button className='button' onClick={()=>{}}>Mark as Completed</Button>
-          </>
+        <div className='title'>
+          <div className='titleText' style={{ color: changeCardColor(state) }}>
+            {title}
+            <div>
+              <span className='tooltiptext'>{title}</span>
+            </div>
+          </div>
+          <Card.Text className='points'>{points}</Card.Text>
+        </div>
+        <Card.Text className='description'>{description}</Card.Text>
+        <div className='contents'>
+          <hr />
+          <div className='usersInfo'>
+            <Card.Text>{author && author.username}</Card.Text>
+            <Card.Text className='verifier'>
+              verifier: {verifier && verifier.username}
+            </Card.Text>
+          </div>
+          <div className='dates'>
+            <Card.Text>
+              {moment(creationDate).format('MMM Do YYYY')} -{' '}
+              {pendingDate ? moment(pendingDate).format('MMM Do YYYY') : '?'}
+            </Card.Text>
+          </div>
+        </div>
+        {state === 0 && userId === author._id && (
+          <div className='buttonBox'>
+            <Button
+              className='button'
+              onClick={() => {
+                markAsCompleted(_id)
+              }}>
+              Mark as Completed
+            </Button>
+          </div>
         )}
-        {state === 2 && (
+        {state === 1 && userId === verifier._id && (
+          <div className='buttonBox'>
+            <Button
+              className='button'
+              onClick={() => {
+                markAsFinished(_id)
+              }}>
+              Confirm completion
+            </Button>
+            <Button
+              className='button'
+              onClick={() => {
+                revertTask(_id, state)
+              }}>
+              Revert
+            </Button>
+          </div>
+        )}
+        {state === 2 && (userId === author._id || userId === verifier._id) && (
           <>
-            UKONCZON
+            <div className='buttonBox'>
+              <Button
+                className='button'
+                onClick={() => {
+                  revertTask(_id, state)
+                }}>
+                Revert
+              </Button>
+            </div>
           </>
         )}
       </Card.Body>

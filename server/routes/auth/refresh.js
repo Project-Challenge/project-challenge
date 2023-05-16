@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
     logger.info(`New access token generated for "${decoded.username}"`);
     return res.send({
       accessToken: newAccessToken,
+      refreshToken: refreshToken,
       id: decoded.id,
       username: decoded.username,
     });

@@ -1,17 +1,17 @@
 import { useState, useContext } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
-import { PATHS } from '../const/paths'
 import { AuthContext } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
 import '../../public/styles/Form.css'
-const LogIn = () => {
+import { Link } from 'react-router-dom'
+import { PATHS } from '../const/paths'
+const Register = () => {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  const [remember, setRemember] = useState(false)
-  const { loginUser } = useContext(AuthContext)
-  
+  const [repeatPassword, setRepeatPassword] = useState('')
+  const { registerUser } = useContext(AuthContext)
+
   return (
-    <div style={{ backgroundColor: '' }}>
+    <div>
       <Container
         style={{ height: '100vh' }}
         className='d-flex flex-column align-items-center justify-content-center'>
@@ -24,7 +24,7 @@ const LogIn = () => {
             paddingLeft: '5px',
             paddingRight: '5px',
           }}>
-          <h1>Login</h1>
+          <h1>Register</h1>
         </div>
         <Card
           style={{
@@ -32,7 +32,7 @@ const LogIn = () => {
             padding: '20px',
             border: '3px solid black',
           }}>
-          <Form onSubmit={loginUser}>
+          <Form onSubmit={registerUser}>
             <Form.Group>
               <Form.Label>Login</Form.Label>
               <Form.Control
@@ -60,18 +60,23 @@ const LogIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder='Password...'
               />
+              <Form.Label
+                style={{ paddingTop: '1rem', textDecorationThickness: '1rem' }}>
+                Repeat the password
+              </Form.Label>
+              <Form.Control
+                style={{ border: '2px solid black' }}
+                type='password'
+                className='loginControls'
+                value={repeatPassword}
+                name='repeatPassword'
+                onChange={(e) => setRepeatPassword(e.target.value)}
+                placeholder='Password...'
+              />
             </Form.Group>
-            <Form.Check
-              style={{ paddingTop: '0.5rem' }}
-              type='switch'
-              name='remember'
-              value={remember}
-              label='Remember me'
-              onChange={(e) => setRemember(!remember)}
-            />
             <p className='text-center' style={{ paddingTop: '1rem' }}>
-              <i>Don't have an account? </i>
-              <Link to={PATHS.register}>Register</Link>
+              <i>Already have an account? </i>
+              <Link to={PATHS.logScreen}>Log In</Link>
             </p>
             <div className='d-flex flex-row gap-3 align-items-center justify-content-between'>
               <div></div>
@@ -79,9 +84,9 @@ const LogIn = () => {
                 variant='primary'
                 type='submit'
                 style={{
-                  marginTop: '-1.5rem',
-                  zIndex: '20',
-                  marginBottom: '-4rem',
+                  marginTop: '1rem',
+                  zIndex: '2',
+                  marginBottom: '-2.5rem',
                   backgroundColor: 'white',
                   border: 'none',
                   color: 'black',
@@ -101,4 +106,4 @@ const LogIn = () => {
   )
 }
 
-export default LogIn
+export default Register

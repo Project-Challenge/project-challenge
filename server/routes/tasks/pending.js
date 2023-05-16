@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const logger = require("../../utils/logger");
 const TaskModel = require('../../models/tasks.js');
+const authMiddleware = require("../../middlewares/auth");
 const joi = require("joi");
 
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const result = await validateTask(req.body);
     if (result.error)  {
@@ -15,7 +16,6 @@ router.post("/", async (req, res) => {
       req.body.id,
       {
         state: 1,
-        finishedBy: "placeholder",
         pendingDate: new Date()
       },
       { new: true }
