@@ -114,25 +114,26 @@ const UserChallenges = () => {
                 checked={isVerify}
                 onChange={handleRadioChange}
               />
-              <Form.Control
-                style={{ width: '25rem' }}
-                className='loginControls'
-                type='text'
-                placeholder='Search'
-                
-                value={searchTerm}
-                onChange={handleSearch}
-              />
+
               <Form.Control
                 style={{ width: '10rem' }}
                 as='select'
-                className='loginControls'
                 onChange={handleSelectChange}>
                 <option value='-1'>State</option>
                 <option value='0'>New</option>
                 <option value='1'>Pending</option>
                 <option value='2'>Finished</option>
               </Form.Control>
+            </div>
+            <div className='searchBox'>
+              <Form.Control
+                style={{ width: '30rem' }}
+                className='loginControls'
+                type='text'
+                placeholder='Search'
+                value={searchTerm}
+                onChange={handleSearch}
+              />
             </div>
           </Form>
           {challenges ? (

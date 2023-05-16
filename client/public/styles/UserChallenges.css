@@ -32,3 +32,4 @@ h1{color: black;}
   outline: none !important;
   box-shadow: none !important;
 }
+.searchBox{justify-content: center; display: flex; padding: 1rem;}
