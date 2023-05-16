@@ -6,12 +6,12 @@ import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react'
 
 const useAxios = () => {
-  const { tokens, setTokens } = useContext(AuthContext)
+  const { tokens, setTokens, user, setUserId } = useContext(AuthContext)
 
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
     headers: {
-      Authorization: `Bearer ${tokens?.accessToken}`,
+      Authorization: tokens?.accessToken,
     },
   })
   axiosInstance.interceptors.request.use(async (req) => {
@@ -25,7 +25,8 @@ const useAxios = () => {
     )
     localStorage.setItem('accessToken', JSON.stringify(response.data))
     setTokens(response.data)
-    req.headers.Authorization = `Bearer ${response.data.accessToken}`
+    setUserId(response.data.id)
+    req.headers.Authorization = response.data.accessToken
 
     if (tokens.refreshToken) {
       const response = await axios.post(
@@ -36,9 +37,10 @@ const useAxios = () => {
       )
       localStorage.setItem('accessToken', JSON.stringify(response.data))
       setTokens(response.data)
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`
+      setUserId(response.data.id)
+      req.headers.Authorization = response.data.accessToken
     } else {
-      req.headers.Authorization = `Bearer ${response.data.accessToken}`
+      req.headers.Authorization = response.data.accessToken
     }
     return req
   })

@@ -34,7 +34,6 @@ const UserChallenges = () => {
 
   const api = useAxios()
   useEffect(() => {
-    console.log(isVerify)
     getChallenges()
   }, [isVerify, state])
   useEffect(() => {
@@ -62,7 +61,6 @@ const UserChallenges = () => {
       console.error(error)
       toast('Shit went down', { theme: 'colored', type: 'warning' })
     }
-    console.log(response)
   }
   const markAsCompleted = async (id) => {
     try {
