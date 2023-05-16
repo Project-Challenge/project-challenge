@@ -18,3 +18,17 @@ h1{color: black;}
 .sectionLink:hover{
         color: #565656;
 }
+.filtersBox{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  
+}
+.loginControls{
+  border: 2px solid black !important;
+}
+.loginControls:focus{
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -16,39 +16,38 @@ import { isCancel } from 'axios'
 const UserChallenges = () => {
   const { logoutUser, userId, userPoints } = useContext(AuthContext)
   const [challenges, setChallenges] = useState()
-  const [isVerify, setIsVerify] = useState(false);
-  const [state, setState] = useState(-1);  
-  const [searchTerm, setSearchTerm] = useState('');
+  const [isVerify, setIsVerify] = useState(false)
+  const [state, setState] = useState(-1)
+  const [searchTerm, setSearchTerm] = useState('')
 
-  
   const handleRadioChange = (event) => {
-    setIsVerify(event.target.value === 'true');
+    setIsVerify(event.target.value === 'true')
   }
-  
+
   const handleSelectChange = (event) => {
-    setState(event.target.value);
+    setState(event.target.value)
   }
-  
+
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value);
-    };
-  
+    setSearchTerm(event.target.value)
+  }
+
   const api = useAxios()
-    useEffect(() => {
-      console.log(isVerify)
+  useEffect(() => {
+    console.log(isVerify)
     getChallenges()
   }, [isVerify, state])
-  useEffect(()=>{
-    const timer = setTimeout(()=>getChallenges(),300)
+  useEffect(() => {
+    const timer = setTimeout(() => getChallenges(), 300)
     return () => clearTimeout(timer)
-  },[searchTerm])
+  }, [searchTerm])
   const getChallenges = async () => {
     let response
     try {
       response = await api.post(ENDPOINTS.tasks, {
         isVerify: isVerify,
         state: state,
-        like: searchTerm
+        like: searchTerm,
       })
       if (response.status === 200) {
         setChallenges(
@@ -56,8 +55,7 @@ const UserChallenges = () => {
             item1.state < item2.state ? -1 : 1
           )
         )
-      }
-      else if(response.status === 204){
+      } else if (response.status === 204) {
         setChallenges(null)
       }
     } catch (error) {
@@ -92,67 +90,69 @@ const UserChallenges = () => {
       console.error(error)
       toast(error, { type: 'warning', theme: 'warning' })
     }
-      
   }
   return (
     <>
       <NavbarComponent logoutUser={logoutUser} userPoints={userPoints} />
       <Container
-        className="customContainer"
+        className='customContainer'
         style={{
-          justifyItems: "center",
-          padding: "0",
-          overflowX: "hidden",
-          paddingTop: "1rem",
-        }}
-      >
-        <Row style={{ width: "100%" }}>
-          <Form style={{ paddingBottom: "20px" }}>
-            <Form.Check
-              type="switch"
-              label="To Verify"
-              name="verifyRadio"
-              id="verifyYes"
-              value={!isVerify}
-              checked={isVerify}
-              onChange={handleRadioChange}
-            />
-            <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Select a status</Form.Label>
-              <Form.Control as="select" onChange={handleSelectChange}>
-                <option value="-1">All</option>
-                <option value="0">New</option>
-                <option value="1">Pending</option>
-                <option value="2">Finished</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Control
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-              value={searchTerm}
-              onChange={handleSearch}
+          justifyItems: 'center',
+          padding: '0',
+          overflowX: 'hidden',
+          paddingTop: '1rem',
+        }}>
+        <Row style={{ width: '100%' }}>
+          <Form style={{ paddingBottom: '20px' }}>
+            <div className='filtersBox'>
+              <Form.Check
+                type='switch'
+                label='To Verify'
+                name='verifyRadio'
+                id='verifyYes'
+                value={!isVerify}
+                checked={isVerify}
+                onChange={handleRadioChange}
               />
+              <Form.Control
+                style={{ width: '25rem' }}
+                className='loginControls'
+                type='text'
+                placeholder='Search'
+                
+                value={searchTerm}
+                onChange={handleSearch}
+              />
+              <Form.Control
+                style={{ width: '10rem' }}
+                as='select'
+                className='loginControls'
+                onChange={handleSelectChange}>
+                <option value='-1'>State</option>
+                <option value='0'>New</option>
+                <option value='1'>Pending</option>
+                <option value='2'>Finished</option>
+              </Form.Control>
+            </div>
           </Form>
           {challenges ? (
-            challenges
-                .map((item, key) => (
-                <Col key={key} md={4}>
-                  <ChallengeCard
-                    key={key}
-                    markAsCompleted={markAsCompleted}
-                    markAsFinished={markAsFinished}
-                    revertTask={revertTask}
-                    {...item}
-                  />
-                </Col>
-              ))
+            challenges.map((item, key) => (
+              <Col key={key} md={4}>
+                <ChallengeCard
+                  key={key}
+                  markAsCompleted={markAsCompleted}
+                  markAsFinished={markAsFinished}
+                  revertTask={revertTask}
+                  {...item}
+                />
+              </Col>
+            ))
           ) : (
-            <div className="textWithoutTasks">
+            <div className='textWithoutTasks'>
               <h1>There are no tasks</h1>
               <p>
-                But you can create one in{" "}
-                <NavLink className="sectionLink" to={PATHS.addChalenge}>
+                But you can create one in{' '}
+                <NavLink className='sectionLink' to={PATHS.addChalenge}>
                   this section
                 </NavLink>
               </p>
@@ -161,7 +161,7 @@ const UserChallenges = () => {
         </Row>
       </Container>
     </>
-  );  
+  )
 }
 
 export default UserChallenges

@@ -7,7 +7,6 @@ const joi = require("joi");
 
 router.post("/", authMiddleware, async (req, res) => {
   try {    
-    console.log(req.body)
     const result = await validateTask(req.body);
     if (result.error) {
       logger.info(result.error.details[0].message);
