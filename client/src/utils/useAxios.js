@@ -6,7 +6,8 @@ import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react'
 
 const useAxios = () => {
-  const { tokens, setTokens, user, setUserId } = useContext(AuthContext)
+  const { tokens, setTokens, user, setUserId, setUserPoints } =
+    useContext(AuthContext)
 
   const axiosInstance = axios.create({
     baseURL: ENDPOINTS.baseURL,
@@ -38,6 +39,7 @@ const useAxios = () => {
       localStorage.setItem('accessToken', JSON.stringify(response.data))
       setTokens(response.data)
       setUserId(response.data.id)
+      setUserPoints(response.data.points)
       req.headers.Authorization = response.data.accessToken
     } else {
       req.headers.Authorization = response.data.accessToken
